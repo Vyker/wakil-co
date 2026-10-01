@@ -1,0 +1,737 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>WAKIL — Private Introduction · Deck</title>
+<meta name="robots" content="noindex"/>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&family=Noto+Naskh+Arabic:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+  :root{
+    --ink:#0B0F14; --charcoal:#141A22; --line:#1c2330; --bone:#EDE7DA;
+    --gilt:#C6A15B; --gilt-hi:#E5C788; --slate:#3E5C76; --muted:#8F96A0; --soft:#C9CDD3;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:var(--ink);color:var(--bone);height:100%;overflow:hidden;
+            font-family:Inter,system-ui,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+            -webkit-font-smoothing:antialiased}
+  .serif{font-family:"Cormorant Garamond",ui-serif,Georgia,"Times New Roman",serif}
+  .mono{font-family:"JetBrains Mono",ui-monospace,Consolas,monospace}
+  .ar{font-family:"Noto Naskh Arabic","Cairo",Tahoma,sans-serif;direction:rtl}
+  .gold{color:var(--gilt)}
+  .muted{color:var(--muted)} .soft{color:var(--soft)}
+  .dot{display:inline-block;width:.24em;height:.24em;border-radius:50%;background:var(--gilt);margin-left:.14em;vertical-align:baseline}
+
+  /* deck stage: 16:9 fixed, centred */
+  .stage{position:fixed;inset:0;display:grid;place-items:center;background:#06080C;z-index:0}
+  .deck{width:min(100vw, 177.78vh);aspect-ratio:16/9;max-height:100vh;background:var(--ink);
+        position:relative;overflow:hidden;box-shadow:0 60px 160px -60px #000}
+  .slide{position:absolute;inset:0;padding:6.4% 7%;opacity:0;visibility:hidden;
+         transition:opacity .55s ease;pointer-events:none;display:flex;flex-direction:column}
+  .slide.active{opacity:1;visibility:visible;pointer-events:auto}
+  .slide .num{font-size:11px;letter-spacing:.32em;color:var(--gilt);text-transform:uppercase;
+             font-family:"JetBrains Mono",monospace;position:absolute;top:4.4%;left:7%}
+  .slide .foot{position:absolute;bottom:4.2%;left:7%;right:7%;display:flex;justify-content:space-between;
+               align-items:center;font-size:10.5px;letter-spacing:.2em;color:#5a6370;
+               font-family:"JetBrains Mono",monospace;text-transform:uppercase}
+  .slide .foot .brand{display:flex;align-items:center;gap:10px}
+  .slide h1{font-weight:500;font-size:clamp(34px,4.3vw,56px);line-height:1.05;letter-spacing:-.01em}
+  .slide h2{font-weight:400;font-size:clamp(24px,2.8vw,36px);line-height:1.14;margin-top:4%}
+  .slide h3{font-weight:400;font-size:18px;letter-spacing:.02em}
+  .slide .lead{max-width:62ch;font-size:16px;line-height:1.7;color:var(--soft);margin-top:1.4%}
+  .slide .arblock{color:var(--soft);font-size:14px;margin-top:1%;max-width:60ch}
+  .slide .bigserif{font-family:"Cormorant Garamond",serif;font-weight:500;font-size:66px;
+                   line-height:1;letter-spacing:-.01em}
+  .trust{display:flex;gap:28px;margin-top:2.4%}
+  .trust span{border-bottom:1px solid var(--gilt);padding-bottom:6px;letter-spacing:.24em;
+              font-size:10.5px;text-transform:uppercase;color:var(--bone)}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:2.4%;align-items:start;margin-top:1.4%}
+  .row3{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4%;margin-top:2%}
+  .panel{background:var(--charcoal);border:1px solid #212938;padding:22px}
+  .cap{font-size:12px;color:var(--muted);margin-top:10px;letter-spacing:.02em}
+  .numcard{padding:22px 20px;border:1px solid #232c3a;background:var(--charcoal)}
+  .numcard .v{font-family:"Cormorant Garamond",serif;font-size:64px;line-height:1;color:var(--gilt)}
+  .numcard .v small{font-size:.42em;color:var(--gilt-hi)}
+  .numcard .l{color:var(--soft);font-size:13px;margin-top:10px}
+  .numcard .ar-l{color:var(--muted);font-size:12px;margin-top:4px}
+
+  /* monogram */
+  .mk{width:52px;height:52px;flex:none}
+  .mk.big{width:96px;height:96px}
+
+  /* dashboard render (used in slide 4 + 11) */
+  .dashbox{background:var(--charcoal);border:1px solid #232c3a;padding:16px}
+  .dashbar{display:flex;justify-content:space-between;align-items:center;font-family:"JetBrains Mono",monospace;
+           font-size:10px;letter-spacing:.16em;color:var(--muted);margin-bottom:10px}
+  .dashbar .run{color:var(--gilt)}
+  .dashgrid{display:grid;grid-template-columns:1fr 1.1fr 1fr;gap:10px}
+  .card{background:var(--ink);border:1px solid #1e2531;padding:11px}
+  .card h4{font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;font-weight:500}
+  .tile{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #171d27;font-size:12.5px}
+  .tile:last-child{border-bottom:none}
+  .tile .s{font-family:"JetBrains Mono",monospace;font-size:9.5px;color:var(--muted)}
+  .dstat{width:6px;height:6px;border-radius:50%;background:var(--gilt);display:inline-block;margin-left:8px}
+  .today .line{display:flex;gap:10px;padding:4px 0;border-bottom:1px solid #171d27;font-size:12px;line-height:1.55}
+  .today .line:last-child{border-bottom:none}
+  .today .mk2{color:var(--gilt);width:14px;text-align:center;flex:none}
+  .money .big{font-family:"Cormorant Garamond",serif;font-size:22px}
+  .money .big.sm{font-size:15px;margin-top:6px}
+  .money .lab{font-size:9.5px;color:var(--muted);letter-spacing:.16em;text-transform:uppercase}
+  .ask{margin-top:10px;background:var(--ink);border:1px solid #1e2531;padding:10px 11px}
+  .ask .q{font-size:12px;color:var(--soft)}
+  .ask .a{margin-top:6px;font-family:"JetBrains Mono",monospace;font-size:10.5px;color:#b9bfc7;line-height:1.65}
+  .ask .cite{color:var(--gilt);font-size:10px;margin-top:5px;display:block;font-family:"JetBrains Mono",monospace}
+
+  /* steps */
+  ol.steps{list-style:none;counter-reset:s;margin-top:1.4%;display:grid;grid-template-columns:1fr 1fr;gap:0 40px}
+  ol.steps li{counter-increment:s;padding:10px 0;border-bottom:1px solid var(--line);
+              display:flex;gap:14px;align-items:baseline;font-size:14.5px;color:var(--bone)}
+  ol.steps li::before{content:counter(s,decimal-leading-zero);color:var(--gilt);
+                      font-family:"JetBrains Mono",monospace;font-size:11.5px;min-width:26px;letter-spacing:.1em}
+  ol.steps li .ar-line{display:block;color:var(--muted);font-size:12px;margin-top:1px}
+
+  /* agent grid */
+  .aggrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:2%}
+  .ag{background:var(--charcoal);border:1px solid #202836;padding:14px}
+  .ag .k{color:var(--gilt);font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;
+         font-family:"JetBrains Mono",monospace;margin-bottom:6px}
+  .ag .nm{font-family:"Cormorant Garamond",serif;font-size:18px}
+  .ag .ar-nm{color:var(--muted);font-size:11.5px;margin-top:1px}
+  .ag p{font-size:12.5px;color:var(--soft);margin-top:7px;line-height:1.6}
+
+  /* controls */
+  .ctl{position:fixed;bottom:14px;left:50%;transform:translateX(-50%);z-index:5;
+       display:flex;gap:8px;align-items:center;font-family:"JetBrains Mono",monospace}
+  .ctl button{background:transparent;border:1px solid #2a3140;color:var(--muted);
+              width:28px;height:28px;cursor:pointer;font-size:13px;font-family:inherit}
+  .ctl button:hover{border-color:var(--gilt);color:var(--bone)}
+  .ctl .idx{color:var(--muted);font-size:11px;letter-spacing:.18em;padding:0 8px}
+
+  /* print: 16:9 one per page */
+  @media print{
+    @page{size:16in 9in;margin:0}
+    html,body{overflow:visible;background:var(--ink)}
+    .stage{position:static;display:block;background:#06080C}
+    .deck{width:16in;height:9in;box-shadow:none;overflow:hidden;position:relative}
+    .slide{position:relative;opacity:1!important;visibility:visible!important;pointer-events:auto;
+           page-break-after:always;break-after:page}
+    .slide:last-child{page-break-after:auto;break-after:auto}
+    .ctl{display:none}
+  }
+</style>
+</head>
+<body>
+
+<div class="stage">
+  <div class="deck" id="deck">
+
+    <!-- ============ SLIDE 1 · COVER ============ -->
+    <section class="slide active">
+      <div class="foot">
+        <div class="brand">
+          <svg class="mk" style="width:22px;height:22px" viewBox="-2 8 96 96">
+            <path d="M 14 26 L 31 74 L 45 42 L 59 74 L 76 26" stroke="url(#b)" stroke-width="3.6" stroke-linecap="square" stroke-linejoin="miter" fill="none"/>
+            <polygon points="45,20 54,34 45,48 36,34" fill="none" stroke="url(#g)" stroke-width="2"/>
+            <circle cx="45" cy="34" r="3" fill="url(#g)"/>
+          </svg>
+          WAKIL · THE ONE WHO ACTS FOR YOU
+        </div>
+        <div>PRIVATE INTRODUCTION · <span id="today"></span></div>
+      </div>
+      <div class="num">WAKIL · INTRODUCTION · 01</div>
+      <div style="flex:1;display:flex;flex-direction:column;justify-content:center">
+        <div style="display:flex;align-items:center;gap:22px;margin-bottom:2%">
+          <svg class="mk big" viewBox="-2 8 96 96">
+            <path d="M 14 26 L 31 74 L 45 42 L 59 74 L 76 26" stroke="url(#b)" stroke-width="3.6" stroke-linecap="square" stroke-linejoin="miter" fill="none"/>
+            <polygon points="45,20 54,34 45,48 36,34" fill="none" stroke="url(#g)" stroke-width="2"/>
+            <circle cx="45" cy="34" r="3" fill="url(#g)"/>
+          </svg>
+          <div>
+            <div style="font-family:'Cormorant Garamond',serif;font-size:56px;letter-spacing:.14em;font-weight:500">WAKIL</div>
+            <div class="ar" style="color:var(--muted);font-size:15px">الوكيل — من يعمل نيابةً عنك</div>
+          </div>
+        </div>
+        <h1 style="margin-top:3%">A private introduction for <span class="gold">—</span></h1>
+        <div class="lead" style="max-width:56ch;margin-top:1.2%">
+          Prepared for the executive who owns this office — on their time, in their room,
+          over their machine.
+        </div>
+        <div class="trust">
+          <span>INDEPENDENT</span><span>PRIVATE</span><span>YOURS</span><span>ON-PREMISE</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SLIDE 2 · THREE WORDS ============ -->
+    <section class="slide">
+      <div class="num">02 · THREE WORDS</div>
+      <h2>The brand, in one breath.</h2>
+      <div class="row3" style="flex:1;align-items:center">
+        <div class="panel" style="text-align:center;padding:30px 22px">
+          <div class="serif" style="font-size:34px;color:var(--bone);margin-bottom:10px">INDEPENDENT</div>
+          <div class="ar" style="color:var(--muted);font-size:13px;margin-bottom:14px">مستقلّ</div>
+          <p class="lead" style="margin-top:0;max-width:none;font-size:13.5px">No product to sell, no commission to earn,
+          no conflict to hide. We recommend only what fits.</p>
+        </div>
+        <div class="panel" style="text-align:center;padding:30px 22px">
+          <div class="serif" style="font-size:34px;margin-bottom:10px">PRIVATE</div>
+          <div class="ar" style="color:var(--muted);font-size:13px;margin-bottom:14px">خاصّ</div>
+          <p class="lead" style="margin-top:0;max-width:none;font-size:13.5px">On your machine, in your room.
+          Credentials enter by you. Nothing leaves.</p>
+        </div>
+        <div class="panel" style="text-align:center;padding:30px 22px">
+          <div class="serif" style="font-size:34px;color:var(--bone);margin-bottom:10px">YOURS</div>
+          <div class="ar" style="color:var(--muted);font-size:13px;margin-bottom:14px">لك وحدك</div>
+          <p class="lead" style="margin-top:0;max-width:none;font-size:13.5px">We hand over the keys.
+          You drive it. No login, no subscription, no lock-in.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SLIDE 3 · THE TRUTH ============ -->
+    <section class="slide">
+      <div class="num">03 · THE TRUTH</div>
+      <h1 style="max-width:18ch">You are not behind on AI.
+        <br/>You are <span class="gold">under-served</span> by it.</h1>
+      <div class="row2" style="margin-top:3.5%;flex:1;align-items:start">
+        <div>
+          <p class="lead" style="margin-top:0">The vendors oversold. The platforms built infrastructure,
+          not the last mile. The result, in rooms just like this one, is fear
+          — the fear that what is being told is not what is true.</p>
+          <p class="lead" style="margin-top:1.4%">We sit on the other side of that room.
+          We fixed <span class="gold">Abu Dhabi Police</span> after a ~US$20M deployment
+          they were told was done. We walked out of the <span class="gold">Emirates Foundation</span>
+          and came back with a working model. We sat with a group of five entities
+          and their chair — and walked out with his reference, not his invoice.</p>
+          <div class="arblock" style="margin-top:2%">
+            البائعون باعوا أكثر ممَّا يُوصى به. المنصّات بنَت البنية، لم تعبِر المسافة الأخيرة.
+            النتيجة، في قاعاتٍ كهذه: خيفةٌ ممّا يُقال.
+          </div>
+        </div>
+        <div class="panel" style="padding:26px 28px;align-self:stretch">
+          <h3 class="gold" style="font-size:13px;letter-spacing:.22em;text-transform:uppercase;margin-bottom:14px;font-family:Inter,system-ui,sans-serif;font-weight:600">
+            What the gap looks like</h3>
+          <div style="display:flex;flex-direction:column;gap:12px;font-size:14px;color:var(--soft);line-height:1.65">
+            <div><span class="gold mono">01</span> &nbsp;·&nbsp; Money is spent — outcomes are not visible.</div>
+            <div><span class="gold mono">02</span> &nbsp;·&nbsp; The tool is there — the day is not changed.</div>
+            <div><span class="gold mono">03</span> &nbsp;·&nbsp; The vendor is trusted — the key is not handed over.</div>
+            <div><span class="gold mono">04</span> &nbsp;·&nbsp; The board is briefed — the agent is not.</div>
+          </div>
+          <div style="margin-top:20px;padding-top:18px;border-top:1px solid var(--line);font-size:14px;color:var(--bone);line-height:1.7">
+            <span class="gold">The missing piece is not a product.</span><br/>
+            It is a private, on-premise, independent, senior-level AI office —
+            and the person who walks it through to you.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SLIDE 4 · WHAT WE BUILD ============ -->
+    <section class="slide">
+      <div class="num">04 · WHAT WE BUILD</div>
+      <h2>A sovereign AI office — on your machine.</h2>
+      <div class="arblock" style="margin-bottom:1.4%">مكتب ذكاء اصطناعي سيادي على جهازك أنت.</div>
+      <div class="row2" style="flex:1;align-items:stretch">
+        <div style="display:flex;flex-direction:column;gap:14px">
+          <div class="panel" style="padding:16px 18px">
+            <h3 style="font-size:13px;letter-spacing:.2em;text-transform:uppercase;margin-bottom:8px;font-family:Inter,sans-serif;font-weight:600" class="gold">The node</h3>
+            <p class="lead" style="margin-top:0;font-size:13.5px">A sovereign AI server, imaged, secured,
+            and installed in your office or home. A physical asset you own and can hand to
+            your heir or your entity's board.</p>
+          </div>
+          <div class="panel" style="padding:16px 18px">
+            <h3 style="font-size:13px;letter-spacing:.2em;text-transform:uppercase;margin-bottom:8px;font-family:Inter,sans-serif;font-weight:600" class="gold">The 20–30 agents</h3>
+            <p class="lead" style="margin-top:0;font-size:13.5px">A deputy — a set of scoped, live agents that
+            run your banks, your calendar, your entities, your investment, your day.
+            Every one of them source-cited, auditable, yours.</p>
+          </div>
+          <div class="panel" style="padding:16px 18px">
+            <h3 style="font-size:13px;letter-spacing:.2em;text-transform:uppercase;margin-bottom:8px;font-family:Inter,sans-serif;font-weight:600" class="gold">The dashboard</h3>
+            <p class="lead" style="margin-top:0;font-size:13.5px">Your morning surface: today, money, entities,
+            agents, ask. It is the only thing you look at.</p>
+          </div>
+          <div class="panel" style="padding:16px 18px">
+            <h3 style="font-size:13px;letter-spacing:.2em;text-transform:uppercase;margin-bottom:8px;font-family:Inter,sans-serif;font-weight:600" class="gold">The advisory</h3>
+            <p class="lead" style="margin-top:0;font-size:13.5px">A human in the room for 2 months, then on-call.
+            You drive; we are the seat you can see.</p>
+          </div>
+        </div>
+        <div class="dashbox" style="align-self:stretch;display:flex;flex-direction:column">
+          <div class="dashbar" style="margin-bottom:12px">
+            <span>WAKIL · SOVEREIGN · LOCAL</span>
+            <span class="run">20 AGENTS RUNNING · YOU ●</span>
+          </div>
+          <div class="dashgrid" style="flex:1;align-content:start">
+            <div>
+              <div class="card">
+                <h4>Agents</h4>
+                <div class="tile"><span>Portfolio<span class="dstat"></span></span><span class="s">1 flag</span></div>
+                <div class="tile"><span>Bank &amp; Finance</span><span class="s">synced</span></div>
+                <div class="tile"><span>Calendar &amp; Day</span><span class="s">brief ready</span></div>
+                <div class="tile"><span>Investment</span><span class="s">3 watch</span></div>
+                <div class="tile"><span>Entity &amp; Board</span><span class="s">2 health</span></div>
+                <div class="tile"><span>Research</span><span class="s">cited</span></div>
+              </div>
+            </div>
+            <div>
+              <div class="card today">
+                <h4>Today</h4>
+                <div class="line"><span class="mk2">◆</span><span>Cap-call missed — Almarai Group</span></div>
+                <div class="line"><span class="mk2">◆</span><span>Board 4d behind — 2 actions</span></div>
+                <div class="line"><span class="mk2">◆</span><span>New portfolio line — ready to open</span></div>
+              </div>
+            </div>
+            <div>
+              <div class="card money">
+                <h4>Money</h4>
+                <div class="big">AED 48.2M</div>
+                <div class="lab">total · across entities</div>
+                <div class="big sm">AED −2.4M</div>
+                <div class="lab">5-day flow</div>
+              </div>
+            </div>
+          </div>
+          <div class="ask">
+            <div class="q">Q &nbsp;·&nbsp; Which entity is behind its board date, and why?</div>
+            <div class="a">A &nbsp;·&nbsp; Almarai Group — board 4d behind; cap-call missed 28/09. Next: re-issue.</div>
+            <div class="cite">[ source · local · portfolio/records ]</div>
+          </div>
+          <div style="margin-top:10px;font-size:10px;color:var(--muted);font-family:'JetBrains Mono',monospace;
+                letter-spacing:.14em;text-align:right">ON-PREMISE · LOCAL · 20 AGENTS RUNNING</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SLIDE 5 · THE DEPUTY ============ -->
+    <section class="slide">
+      <div class="num">05 · THE DEPUTY</div>
+      <h2>Twenty to thirty agents, working quietly.</h2>
+      <p class="arblock">عشرون إلى ثلاثون موكِلًا، يعملون بوضوح.</p>
+      <div class="aggrid" style="margin-top:2.4%">
+        <div class="ag"><div class="k">01 · Portfolio</div><div class="nm">Portfolio</div>
+          <div class="ar-nm">المحفظة</div>
+          <p>Your entities, holdings, KPIs. Flags anomalies before they surface.</p></div>
+        <div class="ag"><div class="k">02 · Bank &amp; Finance</div><div class="nm">Bank</div>
+          <div class="ar-nm">البنوك</div>
+          <p>Reads your banks — you enter the keys. Surfaces what matters.</p></div>
+        <div class="ag"><div class="k">03 · Calendar &amp; Day</div><div class="nm">Day</div>
+          <div class="ar-nm">اليوم</div>
+          <p>Agenda, follow-ups, and a brief that's ready before your first call.</p></div>
+        <div class="ag"><div class="k">04 · Investment</div><div class="nm">Investment</div>
+          <div class="ar-nm">الاستثمار</div>
+          <p>Positions, thesis, opportunities, watch-lists.</p></div>
+        <div class="ag"><div class="k">05 · Entity &amp; Board</div><div class="nm">Entity</div>
+          <div class="ar-nm">الكيانات</div>
+          <p>Per-entity health, board-deck drafts, cap view.</p></div>
+        <div class="ag"><div class="k">06 · Research</div><div class="nm">Ask</div>
+          <div class="ar-nm">اسأل</div>
+          <p>A private, source-cited answer over your own documents.</p></div>
+      </div>
+      <p class="soft" style="margin-top:2%;font-size:13.5px;max-width:80ch">
+        Plus fourteen to twenty-four more that earn their place as we learn your day —
+        comms, travel, board prep, diligence, "anything."
+        <span class="ar" style="color:var(--muted)">وزيادة أربعَ عشرةَ إلى أربعِ وعشرينَ، تبني مكانها حين نعرف يومَكم.</span>
+      </p>
+    </section>
+
+    <!-- ============ SLIDE 6 · THE PROMISE ============ -->
+    <section class="slide">
+      <div class="num">06 · THE PROMISE · TWO MONTHS</div>
+      <h2>Measured, not claimed.</h2>
+      <p class="arblock">مقيس، لا يُدَّعى.</p>
+      <div class="row3" style="flex:1;align-items:center">
+        <div class="numcard" style="text-align:center">
+          <div class="v">20–30</div>
+          <div class="l">agents working for you</div>
+          <div class="ar-l ar">عشرون إلى ثلاثون موكِلًا</div>
+        </div>
+        <div class="numcard" style="text-align:center">
+          <div class="v">10<small>×</small></div>
+          <div class="l">efficiency — a target, stated &amp; signed</div>
+          <div class="ar-l ar">كفاءة — هدفٌ معلَن وموقَّع</div>
+        </div>
+        <div class="numcard" style="text-align:center">
+          <div class="v">1</div>
+          <div class="l">sovereign machine, owned by you</div>
+          <div class="ar-l ar">جهازٌ سيادي ملكٌ لك</div>
+        </div>
+      </div>
+      <div class="panel" style="margin-top:2.4%;padding:18px 22px;display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap">
+        <div style="font-size:14px;color:var(--soft);max-width:70ch;line-height:1.7">
+          The three numbers above are in the statement of work.
+          <span class="gold">"10×" is a target to be measured at day 30 against actuals —
+          not a marketing claim.</span> If it is not met, the conversation continues;
+          the invoice does not.
+        </div>
+        <div class="ar" style="color:var(--muted);font-size:13px;text-align:right;line-height:1.85;max-width:38ch">
+          الأرقامُ الثلاثة في صكّ العمل. "عشرُ أضعاف" هدفٌ يُقاس
+          في اليوم الثلاثين ولا يُدَّعى.
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SLIDE 7 · HOW IT WORKS ============ -->
+    <section class="slide">
+      <div class="num">07 · HOW IT WORKS · NINE STEPS</div>
+      <h2>From intake to your hands.</h2>
+      <p class="arblock">من التقييم إلى يديك.</p>
+      <ol class="steps" style="margin-top:2.4%">
+        <li><span>Intake &amp; sovereign scope — we map what you run and pick your top agents.</span>
+          <span class="ar-line ar">التقييم وتحديد النطاق السيادي</span></li>
+        <li><span>Your node — supplied, imaged, secured, in your premises.</span>
+          <span class="ar-line ar">جهازك — في مقرك</span></li>
+        <li><span>Connectors — you authorise; we never hold the key.</span>
+          <span class="ar-line ar">الربطات — تُوِّفِر وحدك، لا نملك أيّ مفتاح</span></li>
+        <li><span>The initial five agents live — working from day one.</span>
+          <span class="ar-line ar">خمسةُ موكِلين يعملون من اليوم</span></li>
+        <li><span>Your "Today" dashboard — the morning surface.</span>
+          <span class="ar-line ar">لوحة "اليوم" — سطح الصبح</span></li>
+        <li><span>Education &amp; handover — you drive it, not us.</span>
+          <span class="ar-line ar">تدريب وتسليم — أنت من يشغّله</span></li>
+        <li><span>30-day tuning — target vs. actual, written down.</span>
+          <span class="ar-line ar">ضبط في ثلاثين يومًا — الهدف مقابل الفعل</span></li>
+        <li><span>Expansion toward 20–30 agents — only what earns its place.</span>
+          <span class="ar-line ar">توسّع نحو 20–30 موكِلًا</span></li>
+        <li><span>Reference &amp; on-call — quietly, when you are.</span>
+          <span class="ar-line ar">شهادة ومتابعة — بهدوء</span></li>
+      </ol>
+      <div class="panel" style="margin-top:2.4%;padding:16px 22px;border-color:#263042;display:flex;justify-content:space-between;gap:22px;align-items:center;flex-wrap:wrap">
+        <div style="font-size:14px;color:var(--soft);max-width:64ch">
+          The rule every step obeys:
+          <span class="gold">you enter your own credentials at every integration;
+          we recommend, install, and hand you the keys.</span>
+        </div>
+        <div class="ar" style="color:var(--muted);font-size:13px">تُدخل مفاتيحك وحدك؛ نحن نوصي ونركّب ونسلّم.</div>
+      </div>
+    </section>
+
+    <!-- ============ SLIDE 8 · WHAT WE ARE NOT ============ -->
+    <section class="slide">
+      <div class="num">08 · WHAT WE ARE NOT</div>
+      <h2>Three negative definitions.</h2>
+      <div class="row3" style="flex:1;align-items:center">
+        <div class="panel" style="padding:28px 24px;text-align:center">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:44px;color:#D98A8A;line-height:1;margin-bottom:6px">Not</div>
+          <div class="serif" style="font-size:26px;margin-bottom:12px">a product</div>
+          <div class="cap">No software to licence, no SKU to renew. We sell a capability,
+          not a box. You own the hardware; you own the stack.</div>
+        </div>
+        <div class="panel" style="padding:28px 24px;text-align:center">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:44px;color:#D98A8A;line-height:1;margin-bottom:6px">Not</div>
+          <div class="serif" style="font-size:26px;margin-bottom:12px">a cloud</div>
+          <div class="cap">No data plane outside your walls. No per-seat, no per-request,
+          no vendor lock. Your AI is in your room, on your power.</div>
+        </div>
+        <div class="panel" style="padding:28px 24px;text-align:center">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:44px;color:#D98A8A;line-height:1;margin-bottom:6px">Not</div>
+          <div class="serif" style="font-size:26px;margin-bottom:12px">a reseller</div>
+          <div class="cap">No commission on the tool we recommend. That independence
+          is the whole point — and the whole reason a senior person trusts us.</div>
+        </div>
+      </div>
+      <p class="soft" style="margin-top:2.4%;max-width:74ch;font-size:14.5px;line-height:1.75">
+        We are the opposite of a vendor — a private, independent, senior-level
+        advisor who has <span class="gold">nothing to sell and nothing to hide</span>,
+        and a machine that lives in your office.
+      </p>
+    </section>
+
+    <!-- ============ SLIDE 9 · YOUR MACHINE, YOUR KEYS ============ -->
+    <section class="slide">
+      <div class="num">09 · YOUR MACHINE · YOUR KEYS</div>
+      <h2>Sovereignty, in three sentences.</h2>
+      <div class="row2" style="flex:1;align-items:start;margin-top:2%">
+        <div style="display:flex;flex-direction:column;gap:14px">
+          <div class="panel" style="padding:18px 22px">
+            <div class="mono gold" style="font-size:10.5px;letter-spacing:.22em;margin-bottom:8px">01 · THE NODE</div>
+            <div style="font-size:15px;color:var(--bone);line-height:1.7">
+              A sovereign AI server, imaged, secured, and installed in your office or home.
+              A physical asset you own and can hand to your heir or your entity's board.
+            </div>
+          </div>
+          <div class="panel" style="padding:18px 22px">
+            <div class="mono gold" style="font-size:10.5px;letter-spacing:.22em;margin-bottom:8px">02 · YOUR KEYS</div>
+            <div style="font-size:15px;color:var(--bone);line-height:1.7">
+              Every bank, every calendar, every inbox — you log in yourself.
+              We never hold your credential, we never mirror your data.
+              The deputy runs it <span class="gold">for you, on your terms</span>; it does not run it for us.
+            </div>
+          </div>
+          <div class="panel" style="padding:18px 22px">
+            <div class="mono gold" style="font-size:10.5px;letter-spacing:.22em;margin-bottom:8px">03 · NOTHING LEAVES</div>
+            <div style="font-size:15px;color:var(--bone);line-height:1.7">
+              No data plane outside your walls. Every answer is source-cited
+              and auditable inside your LAN. Every agent action is logged,
+              replayable, and deletable by you.
+            </div>
+          </div>
+        </div>
+        <div class="panel" style="padding:28px 30px;display:flex;flex-direction:column;justify-content:center;align-self:stretch;background:#111722;border-color:#263042">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:32px;line-height:1.25;margin-bottom:14px">
+            "I would give a vendor the key
+            <span class="gold">only if the key stayed in my hand.</span>"
+          </div>
+          <div class="ar" style="color:var(--soft);font-size:15px;line-height:1.85">
+            «لا أسلِّم المفاتيح إلّا لمن يبقيها في يدي.»
+          </div>
+          <div style="margin-top:14px;font-size:12.5px;color:var(--muted);letter-spacing:.04em">
+            — the line we hold to, one client at a time.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SLIDE 10 · TWO MONTHS ============ -->
+    <section class="slide">
+      <div class="num">10 · TWO MONTHS · ONE OUTCOME</div>
+      <h2>The commitment, in plain language.</h2>
+      <p class="arblock">الالتزام بلغةٍ صريحة.</p>
+      <div class="row2" style="flex:1;align-items:start;margin-top:2%">
+        <div>
+          <div style="display:flex;flex-direction:column;gap:6px;margin-top:0">
+            <div style="display:flex;gap:16px;align-items:baseline;padding:14px 0;border-bottom:1px solid var(--line)">
+              <span class="mono gold" style="min-width:44px;font-size:13px">WEEK 1</span>
+              <span style="color:var(--soft);font-size:14.5px">Intake, scope, node in your premises, first connectors.</span>
+            </div>
+            <div style="display:flex;gap:16px;align-items:baseline;padding:14px 0;border-bottom:1px solid var(--line)">
+              <span class="mono gold" style="min-width:44px;font-size:13px">WEEK 2</span>
+              <span style="color:var(--soft);font-size:14.5px">Five agents live. The dashboard on your LAN. The first answers.</span>
+            </div>
+            <div style="display:flex;gap:16px;align-items:baseline;padding:14px 0;border-bottom:1px solid var(--line)">
+              <span class="mono gold" style="min-width:44px;font-size:13px">WEEK 3</span>
+              <span style="color:var(--soft);font-size:14.5px">Education sessions. You drive it; we step back. Expansion begins.</span>
+            </div>
+            <div style="display:flex;gap:16px;align-items:baseline;padding:14px 0;border-bottom:1px solid var(--line)">
+              <span class="mono gold" style="min-width:44px;font-size:13px">WEEK 4</span>
+              <span style="color:var(--soft);font-size:14.5px">30-day measurement against the stated target. Reference, in writing.</span>
+            </div>
+            <div style="display:flex;gap:16px;align-items:baseline;padding:14px 0;border-bottom:1px solid var(--line)">
+              <span class="mono gold" style="min-width:44px;font-size:13px">WEEK 5–8</span>
+              <span style="color:var(--soft);font-size:14.5px">Tuning. New entities and agents. On-call, quietly. The next door, opened.</span>
+            </div>
+          </div>
+        </div>
+        <div class="panel" style="padding:26px 28px;align-self:stretch;background:#111722;border-color:#263042">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:32px;line-height:1.25;margin-bottom:14px">
+            "No contract until
+            <span class="gold">you see it run.</span>"
+          </div>
+          <p class="cap" style="font-size:14.5px;color:var(--soft);line-height:1.75;margin-top:8px">
+            The SOW is short. It names the five agents, the two months, the single
+            machine, and the 10× target to be measured at day 30 against actuals.
+            It does not lock you into a product, a platform, or a renewal.
+          </p>
+          <div class="ar" style="color:var(--muted);font-size:13.5px;margin-top:14px;text-align:right;line-height:1.85">
+            لا عقدَ إلّا بعد أن تراه يعمل. الصكّ قصير:
+            خمسةُ موكِلين، شهران، جهازٌ واحد،
+            وعشرةُ أضعاف تُقاس في اليوم الثلاثين.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SLIDE 11 · COMMERCIAL ============ -->
+    <section class="slide">
+      <div class="num">11 · COMMERCIAL</div>
+      <h2>The number, and the reason for it.</h2>
+      <p class="arblock">الرقم، وسببُه.</p>
+      <div class="row2" style="flex:1;align-items:start;margin-top:1.6%">
+        <div style="display:flex;flex-direction:column;gap:16px">
+          <div class="numcard" style="display:flex;align-items:baseline;gap:24px;padding:24px 26px;border-color:#263042">
+            <div>
+              <div class="v" style="font-size:54px">US$10,000</div>
+              <div class="l" style="margin-top:6px">Reference build · 2 months · one senior executive</div>
+            </div>
+            <div class="ar" style="margin-left:auto;color:var(--muted);font-size:13px;text-align:right;line-height:1.75;max-width:30ch">
+              السعر المرجعي · شهران · رئيسٌ تنفيذي واحد
+            </div>
+          </div>
+          <div class="numcard" style="display:flex;align-items:baseline;gap:24px;padding:24px 26px">
+            <div>
+              <div class="v" style="font-size:54px">US$35k – 60k</div>
+              <div class="l" style="margin-top:6px">List price · Sovereign Build · 2 months</div>
+            </div>
+            <div class="ar" style="margin-left:auto;color:var(--muted);font-size:13px;text-align:right;line-height:1.75;max-width:30ch">
+              السعر الرسمي · البناء السيادي · شهران
+            </div>
+          </div>
+          <div class="numcard" style="display:flex;align-items:baseline;gap:24px;padding:24px 26px;border-color:#2C2415;background:#14100A">
+            <div>
+              <div class="v" style="font-size:46px">Sponsored</div>
+              <div class="l" style="margin-top:6px">The first build is on us, in exchange for the reference.</div>
+            </div>
+            <div class="ar" style="margin-left:auto;color:var(--muted);font-size:13px;text-align:right;line-height:1.75;max-width:32ch">
+              الأوّل مموَّلٌ منّا، مقابل الشهادة
+            </div>
+          </div>
+        </div>
+        <div class="panel" style="padding:26px 28px;align-self:stretch">
+          <h3 class="gold" style="font-size:13px;letter-spacing:.22em;text-transform:uppercase;margin-bottom:14px;font-family:Inter,sans-serif;font-weight:600">
+            What the US$10,000 buys</h3>
+          <div style="display:flex;flex-direction:column;gap:8px;font-size:14px;color:var(--soft);line-height:1.7;margin-top:0">
+            <div>· The sovereignty, measured: 20–30 agents, the node, the dashboard.</div>
+            <div>· The 10× target: stated, signed, measured at day 30.</div>
+            <div>· Two education sessions and the written handover.</div>
+            <div>· On-call for 60 days after the build.</div>
+            <div style="color:var(--gold);margin-top:6px">· A signed, written reference usable across the group.</div>
+          </div>
+          <div style="margin-top:18px;padding-top:16px;border-top:1px solid var(--line);font-size:14px;color:var(--bone);line-height:1.75">
+            <span class="gold">We price it low because it is a door.</span>
+            The reference is the real revenue: one chair leads to a group of
+            five or six entities, and they all ask the same question —
+            "and my board?"
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SLIDE 12 · WHAT HAPPENS NEXT ============ -->
+    <section class="slide">
+      <div class="num">12 · WHAT HAPPENS NEXT</div>
+      <h2>From this room to the whole group.</h2>
+      <p class="arblock">من هذه الغرفة إلى المجموعة كلّها.</p>
+      <div class="row3" style="flex:1;align-items:center;margin-top:1%">
+        <div class="panel" style="padding:28px 24px">
+          <div class="mono gold" style="font-size:10.5px;letter-spacing:.22em;margin-bottom:10px">DAY 30</div>
+          <div class="serif" style="font-size:28px;margin-bottom:10px">You own it.</div>
+          <p class="lead" style="margin-top:0;font-size:13.5px">The node is in your office.
+          The dashboard is the only thing you look at in the morning.
+          The target is measured against actuals, in writing.</p>
+          <div class="ar" style="color:var(--muted);font-size:12.5px;margin-top:10px;line-height:1.8">
+            الجهاز في مكتبك. اللوحة وجهتك كلَّ صباح.
+            الهدفُ قاسناه.
+          </div>
+        </div>
+        <div class="panel" style="padding:28px 24px">
+          <div class="mono gold" style="font-size:10.5px;letter-spacing:.22em;margin-bottom:10px">DAY 60</div>
+          <div class="serif" style="font-size:28px;margin-bottom:10px">The reference.</div>
+          <p class="lead" style="margin-top:0;font-size:13.5px">You can name us, in writing,
+          to the group. One of your peers — a senior leader you trust — sees the build,
+          and asks "and my board?"</p>
+          <div class="ar" style="color:var(--muted);font-size:12.5px;margin-top:10px;line-height:1.8">
+            تُسمّينا، خطّيًّا، للمجموعة.
+            أحدُ أقرانك يرى، ويسأل: «وماذا عن مجلسي؟»
+          </div>
+        </div>
+        <div class="panel" style="padding:28px 24px">
+          <div class="mono gold" style="font-size:10.5px;letter-spacing:.22em;margin-bottom:10px">DAY 90</div>
+          <div class="serif" style="font-size:28px;margin-bottom:10px">The group.</div>
+          <p class="lead" style="margin-top:0;font-size:13.5px">The sovereign fleet —
+          five or six offices, one group. Then the retainer that keeps it moving,
+          and the next door in another room, in another city.</p>
+          <div class="ar" style="color:var(--muted);font-size:12.5px;margin-top:10px;line-height:1.8">
+            أسطولٌ سيادي — خمسُ أو ستُّ مكاتب، مجموعةٌ واحدة.
+            ثمّ المُتابَعة، والبوابةُ التالية.
+          </div>
+        </div>
+      </div>
+      <div class="panel" style="margin-top:2.4%;padding:16px 22px;display:flex;justify-content:space-between;gap:20px;align-items:center;flex-wrap:wrap">
+        <div style="font-size:14px;color:var(--soft);max-width:72ch;line-height:1.7">
+          <span class="gold">This is not a funnel.</span>
+          It is one person at a time, at the top of a room,
+          with their own machine, their own keys, their own agents.
+          The group is the second act — not the first.
+        </div>
+        <div class="ar" style="color:var(--muted);font-size:13px;text-align:right;line-height:1.85;max-width:32ch">
+          هذا ليس مسار تسويق. هذا شخصٌ واحد، في أعلى الغرفة،
+          بجهازه ومفاتيحه وموكِلينه. المجموعة الفصل الثاني.
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SLIDE 13 · CLOSE ============ -->
+    <section class="slide">
+      <div class="num">13 · CLOSE</div>
+      <div style="flex:1;display:flex;flex-direction:column;justify-content:center;align-items:flex-start">
+        <svg class="mk big" style="margin-bottom:2.6%" viewBox="-2 8 96 96">
+          <path d="M 14 26 L 31 74 L 45 42 L 59 74 L 76 26" stroke="url(#b)" stroke-width="3.6" stroke-linecap="square" stroke-linejoin="miter" fill="none"/>
+          <polygon points="45,20 54,34 45,48 36,34" fill="none" stroke="url(#g)" stroke-width="2"/>
+          <circle cx="45" cy="34" r="3" fill="url(#g)"/>
+        </svg>
+        <h1 style="max-width:20ch">No contract until
+          <br/><span class="gold">you see it run.</span></h1>
+        <div class="arblock" style="font-size:15px;margin-top:1%;margin-bottom:2%">لا عقدَ إلّا بعد أن تراه يعمل.</div>
+        <div style="display:flex;flex-direction:column;gap:10px;max-width:64ch;
+                  font-size:14.5px;color:var(--soft);line-height:1.75">
+          <div>· We meet in your office, on your time, over your machine.</div>
+          <div>· We walk through the five agents before any signature.</div>
+          <div>· The node arrives in your premises; the keys stay in your hand.</div>
+          <div>· The measurement is at day 30, in writing — and the invoice follows it, not the other way round.</div>
+          <div style="color:var(--muted);margin-top:4px;font-size:13.5px">No sales sequences. No mailing list. No public demos. No third-party data.</div>
+        </div>
+        <div style="margin-top:3%;display:flex;gap:14px;align-items:center">
+          <div style="display:flex;flex-direction:column;gap:4px">
+            <div style="font-family:'Cormorant Garamond',serif;font-size:26px">WAKIL</div>
+            <div class="ar" style="color:var(--muted);font-size:13px">الوكيل</div>
+          </div>
+          <div style="width:1px;height:34px;background:#263042"></div>
+          <div style="display:flex;flex-direction:column;gap:4px">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:14px;color:var(--gilt)">deputy@vyker.co.uk</div>
+            <div class="muted" style="font-size:12.5px">UAE · private · by appointment</div>
+          </div>
+        </div>
+      </div>
+      <div class="foot">
+        <div class="brand">
+          <svg class="mk" style="width:20px;height:20px" viewBox="-2 8 96 96">
+            <path d="M 14 26 L 31 74 L 45 42 L 59 74 L 76 26" stroke="url(#b)" stroke-width="3.6" stroke-linecap="square" stroke-linejoin="miter" fill="none"/>
+            <polygon points="45,20 54,34 45,48 36,34" fill="none" stroke="url(#g)" stroke-width="2"/>
+            <circle cx="45" cy="34" r="3" fill="url(#g)"/>
+          </svg>
+          WAKIL · THE ONE WHO ACTS FOR YOU
+        </div>
+        <div>END · INDEPENDENT · PRIVATE · YOURS</div>
+      </div>
+    </section>
+
+  </div>
+</div>
+
+<!-- shared monogram / gradients (for all slides) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#E5C788"/><stop offset="50%" stop-color="#C6A15B"/><stop offset="100%" stop-color="#9E7832"/>
+    </linearGradient>
+    <linearGradient id="b" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#FFFFFF"/><stop offset="100%" stop-color="#D6CEBE"/>
+    </linearGradient>
+  </defs>
+</svg>
+
+<div class="ctl">
+  <button id="prev" aria-label="previous">‹</button>
+  <span class="idx"><span id="cur">1</span> / <span id="tot">13</span></span>
+  <button id="next" aria-label="next">›</button>
+  <button id="toggle" aria-label="toggle controls" title="Hide controls (H)">×</button>
+</div>
+
+<script>
+  document.getElementById('tot').textContent = document.querySelectorAll('.slide').length;
+  const slides = [...document.querySelectorAll('.slide')];
+  let i = 0;
+  const cur = document.getElementById('cur');
+  function go(n){
+    i = Math.max(0, Math.min(slides.length-1, n));
+    slides.forEach((s, k) => s.classList.toggle('active', k === i));
+    cur.textContent = i + 1;
+  }
+  document.getElementById('prev').onclick = () => go(i-1);
+  document.getElementById('next').onclick = () => go(i+1);
+  document.getElementById('toggle').onclick = () => {
+    const ctl = document.querySelector('.ctl');
+    ctl.style.display = ctl.style.display === 'none' ? 'flex' : 'none';
+  };
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') { e.preventDefault(); go(i+1); }
+    if (e.key === 'ArrowLeft'  || e.key === 'PageUp')                  { e.preventDefault(); go(i-1); }
+    if (e.key === 'Home') { e.preventDefault(); go(0); }
+    if (e.key === 'End')  { e.preventDefault(); go(slides.length-1); }
+    if (e.key === 'h' || e.key === 'H') { const ctl = document.querySelector('.ctl'); ctl.style.display = ctl.style.display === 'none' ? 'flex' : 'none'; }
+    if (e.key === 'Escape') { const ctl = document.querySelector('.ctl'); ctl.style.display='none'; }
+  });
+  document.getElementById('today').textContent = new Date().toLocaleDateString('en-GB', {day:'2-digit', month:'short', year:'numeric'});
+</script>
+</body>
+</html>
