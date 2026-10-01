@@ -3,7 +3,7 @@
 > The one who acts for you.  الوكيل — من يعمل نيابةً عنك.
 
 The public website for **WAKIL**, private sovereign AI advisory.
-Deployed to GitHub Pages. Custom domain: **wakil.co.uk** (pending DNS).
+Deployed to GitHub Pages: **https://vyker.github.io/wakil-co/**
 
 ## Contents
 - `index.html` — the site (bilingual, self-contained, no trackers)
@@ -14,7 +14,7 @@ Deployed to GitHub Pages. Custom domain: **wakil.co.uk** (pending DNS).
 
 ## Deploy
 Hosted via GitHub Pages on `main` branch, root directory.
-Custom domain `wakil.co.uk` (DNS CNAME → github.io required at the registrar).
+Canonical URL: `https://vyker.github.io/wakil-co/` (no custom domain; repo Pages, `main` @ `/`).
 Email for form routing: `deputy@vyker.co.uk` (Google Workspace, see MX).
 
 ## Brand notes
