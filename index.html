@@ -3,556 +3,716 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<meta name="description" content="WAKIL — private, sovereign AI advisory. A sovereign AI office on your own machine, running 20+ agents across your banks, entities, calendar, and day. Independent. Private. Yours. Based in the UAE."/>
+<meta name="description" content="WAKIL — private sovereign AI advisory. A sovereign AI office on your own machine: 20+ agents across your banks, entities, calendar and day. Independent. Private. Yours. Based in the UAE."/>
 <meta property="og:title" content="WAKIL — The one who acts for you"/>
 <meta property="og:description" content="A sovereign AI office on your own machine. 20+ agents. Independent. Private. Yours."/>
 <meta property="og:type" content="website"/>
-<meta property="og:image" content="/brand/lockup-horizontal.svg"/>
+<meta property="og:url" content="https://vyker.github.io/wakil-co/"/>
+<meta property="og:image" content="https://vyker.github.io/wakil-co/brand/lockup-horizontal.svg"/>
 <meta name="theme-color" content="#0B0F14"/>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
-<link rel="alternate icon" href="/favicon.svg"/>
-
-<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&family=Noto+Naskh+Arabic:wght@400;500;600&display=swap" rel="stylesheet"/>
-
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400;500&family=Noto+Naskh+Arabic:wght@400;500;600&display=swap" rel="stylesheet"/>
 <title>WAKIL — The one who acts for you · الوكيل</title>
 <style>
-  :root{
-    --ink:#0B0F14; --charcoal:#141A22; --line:#1c2330; --bone:#EDE7DA; --bone-soft:#D6CEBE;
-    --gilt:#C6A15B; --gilt-hi:#E5C788; --slate:#3E5C76; --signal:#E3A63A;
-    --muted:#8F96A0; --soft:#C9CDD3;
-  }
-  *{box-sizing:border-box;margin:0;padding:0}
-  html{scroll-behavior:smooth;background:var(--ink)}
-  body{background:var(--ink);color:var(--bone);font-family:Inter,system-ui,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-       font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased;font-size:16px}
-  .serif{font-family:"Cormorant Garamond",ui-serif,Georgia,"Times New Roman",serif}
-  .mono{font-family:"JetBrains Mono",ui-monospace,Consolas,monospace}
-  .ar{font-family:"Noto Naskh Arabic","Cairo",Tahoma,sans-serif;direction:rtl}
-  a{color:var(--gilt);text-decoration:none}
-  a:hover{color:var(--gilt-hi)}
-  .wrap{max-width:1120px;margin:0 auto;padding:0 28px}
-  section{padding:72px 0;border-bottom:1px solid var(--line)}
-  section:last-of-type{border-bottom:none}
-  .num{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.3em;color:var(--gilt);text-transform:uppercase;margin-bottom:14px}
-  h1{font-weight:500;font-size:clamp(40px,6.5vw,72px);line-height:1.04;letter-spacing:-.01em}
-  h2{font-weight:400;font-size:clamp(26px,3.8vw,38px);line-height:1.14;margin:4px 0 12px}
-  .lead{max-width:56ch;color:var(--soft);font-size:17px;margin-top:16px}
-  .arblock{color:var(--soft);margin-top:10px;font-size:15px}
-  .gold{color:var(--gilt)}
-  .dot{display:inline-block;width:.24em;height:.24em;border-radius:50%;background:var(--gilt);margin-left:.14em;vertical-align:baseline}
-  .muted{color:var(--muted)}
-  .lbl{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
-  .panel{background:var(--charcoal);border:1px solid #212938;padding:22px}
-  .cap{font-size:12.5px;color:var(--muted);margin-top:12px}
-  svg{display:inline-block}
+/* =====================================================================
+   WAKIL · v2 — one strict design system
+   Type (7 stops, ~1.3 minor-sixth):
+     11 · 15 · 20 · 26 · 35 · 46 · 60   clamped only between adjacent stops
+   Space (11 stops):
+     4 · 8 · 12 · 16 · 24 · 32 · 48 · 64 · 96 · 128
+   Grid:  1120px container · 48px (2-col) · 24px (3-col)
+   Surface: square, 1px hairline. One card style everywhere.
+   Accent: gold — only as seal, 4–5px dot, and one line. No gradients in body.
+   No opacity-0 reveals (that is what broke v1's proportions under slow JS).
+   ===================================================================== */
+:root{
+  --ink:#0B0F14; --surface:#10151C; --surface2:#0D1117;
+  --hair:#1C2430; --hair2:#141B25;
+  --bone:#EDE7DA; --soft:#C6CDD6; --muted:#8A93A0; --faint:#5A6472;
+  --gold:#C6A15B; --goldhi:#E0BE7A;
+  --t-micro:11px; --t-sm:15px; --t-body:20px;
+  --t-1:26px; --t-2:35px; --t-3:46px; --t-4:60px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;background:var(--ink)}
+body{background:var(--ink);color:var(--soft);
+  font:400 var(--t-body)/1.65 Inter,system-ui,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+::selection{background:rgba(198,161,91,.22);color:var(--bone)}
+a{color:var(--gold);text-decoration:none;transition:color .15s ease}
+a:hover{color:var(--goldhi)}
+:focus-visible{outline:1px solid var(--gold);outline-offset:3px}
 
-  /* header */
-  header.site{position:sticky;top:0;z-index:50;background:rgba(11,15,20,.86);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
-  header .row{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
-  header .brand{display:flex;align-items:center;gap:12px}
-  header .brand .nm{font-family:"Cormorant Garamond",serif;font-weight:600;letter-spacing:.14em;font-size:22px}
-  header nav{display:flex;align-items:center;gap:22px}
-  header nav a{color:var(--soft);font-size:13px;letter-spacing:.14em;text-transform:uppercase}
-  header nav a:hover{color:var(--gilt)}
-  .btn{display:inline-flex;align-items:center;gap:12px;border:1px solid var(--gilt);color:var(--bone);padding:12px 22px;
-       letter-spacing:.04em;font-size:14px;background:transparent;cursor:pointer;transition:border-color .14s ease, background .14s ease}
-  .btn:hover{background:rgba(198,161,91,.07);border-color:var(--gilt-hi)}
-  .btn.ghost{border-color:#2a3140;color:var(--soft)}
-  .btn.ghost:hover{border-color:var(--gilt);color:var(--bone)}
-  .btn.small{padding:9px 16px;font-size:13px}
+/* ---------- type (semantic, all on the 7-stop scale) ---------- */
+.eyebrow{font:500 var(--t-micro)/1 "JetBrains Mono",ui-monospace,monospace;
+  letter-spacing:.28em;text-transform:uppercase;color:var(--gold)}
+.h1{font-family:"Cormorant Garamond",Georgia,serif;font-weight:500;
+  font-size:var(--t-4);line-height:1.05;letter-spacing:-.01em;color:var(--bone)}
+.h2{font-family:"Cormorant Garamond",Georgia,serif;font-weight:500;
+  font-size:var(--t-2);line-height:1.2;letter-spacing:.002em;color:var(--bone)}
+.lead{font-size:var(--t-body);line-height:1.62;color:var(--soft);max-width:34em}
+.body{font-size:var(--t-body);line-height:1.65;color:var(--soft);max-width:38em}
+.small{font-size:var(--t-sm);line-height:1.55;color:var(--muted)}
+.micro{font-size:var(--t-micro);line-height:1.6;color:var(--faint);letter-spacing:.06em}
+.mono{font-family:"JetBrains Mono",ui-monospace,monospace}
+.ar{font-family:"Noto Naskh Arabic","Cairo",Tahoma,sans-serif;direction:rtl;text-align:left}
+.gold{color:var(--gold)}
 
-  /* hero */
-  .hero{padding:80px 0 88px;display:grid;grid-template-columns:1.02fr .98fr;gap:44px;align-items:center;min-height:88vh;
-        background:radial-gradient(closest-side at 70% 40%, #131a24 0%, transparent 70%)}
-  .hero h1{margin:14px 0 4px}
-  .hero .ar{font-size:22px;color:var(--gilt-hi)}
-  .hero .lead{margin:18px 0 6px}
-  .hero .ar-lead{color:var(--soft);margin-top:8px;font-size:15px}
-  .trust{display:flex;gap:26px;margin:26px 0 8px;flex-wrap:wrap}
-  .trust span{border-bottom:1px solid var(--gilt);padding-bottom:5px;letter-spacing:.22em;font-size:11px;text-transform:uppercase;color:var(--bone)}
-  .hero .cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:20px}
-  .hero .note{font-size:12.5px;color:var(--muted);margin-top:18px;letter-spacing:.04em}
+/* ---------- layout ---------- */
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+section{padding:96px 0;border-top:1px solid var(--hair2)}
+.sechead{margin-bottom:48px}
+.sechead .eyebrow{margin-bottom:24px}
+.sechead .ar{margin-top:16px}
+.cols2{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
+.cols-7-5{display:grid;grid-template-columns:7fr 5fr;gap:48px;align-items:start}
 
-  /* dashboard render */
-  .dashbox{background:var(--charcoal);border:1px solid #232c3a;padding:18px 18px 16px;box-shadow:0 40px 90px -60px #000}
-  .dashbar{display:flex;justify-content:space-between;align-items:center;font-family:"JetBrains Mono",monospace;
-           font-size:10.5px;letter-spacing:.16em;color:var(--muted);margin-bottom:12px}
-  .dashbar b{color:var(--soft);font-weight:500}
-  .dashbar .run{color:var(--gilt)}
-  .dashgrid{display:grid;grid-template-columns:1fr 1.05fr .9fr;gap:10px}
-  .card{background:var(--ink);border:1px solid #1e2531;padding:11px}
-  .card h4{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:10px;font-weight:500}
-  .tile{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid #171d27}
-  .tile:last-child{border-bottom:none}
-  .tile .n{font-size:12.5px}
-  .tile .s{font-family:"JetBrains Mono",monospace;font-size:9.5px;color:var(--muted);letter-spacing:.06em}
-  .dstat{width:6px;height:6px;border-radius:50%;background:var(--gilt);display:inline-block;margin-left:8px;vertical-align:middle}
-  .today .line{display:flex;gap:10px;padding:5px 0;border-bottom:1px solid #171d27;font-size:12.5px;line-height:1.55}
-  .today .line:last-child{border-bottom:none}
-  .today .mk{color:var(--gilt);flex:none;width:14px;text-align:center}
-  .money .big{font-family:"Cormorant Garamond",serif;font-size:24px;letter-spacing:-.01em}
-  .money .big.sm{font-size:17px;margin-top:8px}
-  .money .lab{font-size:10px;color:var(--muted);letter-spacing:.14em;text-transform:uppercase}
-  .ask{margin-top:12px;background:var(--ink);border:1px solid #1e2531;padding:11px 12px}
-  .ask .q{font-size:12.5px;color:var(--soft)}
-  .ask .a{margin-top:8px;font-family:"JetBrains Mono",monospace;font-size:11.5px;color:#b9bfc7;line-height:1.7}
-  .ask .cite{color:var(--gilt);font-size:10.5px;margin-top:6px;display:block;font-family:"JetBrains Mono",monospace}
+/* ---------- shared atoms (one card style, one accent) ---------- */
+.card{background:var(--surface);border:1px solid var(--hair)}
+.trust{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.trust .t{font:500 var(--t-micro)/1 "JetBrains Mono",monospace;
+  letter-spacing:.24em;text-transform:uppercase;color:var(--muted)}
+.trust .d{width:4px;height:4px;border-radius:50%;background:var(--gold);flex:none}
+.dot{display:inline-block;width:.24em;height:.24em;border-radius:50%;
+  background:var(--gold);margin-left:.14em;vertical-align:baseline}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:12px;
+  border:1px solid var(--gold);color:var(--bone);background:transparent;
+  font:500 var(--t-sm)/1 Inter,sans-serif;letter-spacing:.06em;
+  padding:16px 24px;cursor:pointer;transition:background .15s,border-color .15s}
+.btn:hover{background:rgba(198,161,91,.08);border-color:var(--goldhi)}
+.btn .ar{font-size:var(--t-sm)}
+.btn-2{border-color:#2A3444;color:var(--soft)}
+.btn-2:hover{border-color:var(--gold);color:var(--bone);background:rgba(198,161,91,.05)}
 
-  /* agents */
-  .aggrid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:26px}
-  .ag{background:var(--charcoal);border:1px solid #202836;padding:18px}
-  .ag .k{color:var(--gilt);font-size:10px;letter-spacing:.18em;text-transform:uppercase;font-family:"JetBrains Mono",monospace;margin-bottom:8px}
-  .ag .name{font-family:"Cormorant Garamond",serif;font-size:20px;letter-spacing:.02em}
-  .ag .ar-nm{color:var(--muted);font-size:13px;margin-top:2px}
-  .ag p{font-size:13.5px;color:var(--soft);margin-top:8px;line-height:1.65}
+/* ---------- header ---------- */
+.hdr{position:sticky;top:0;z-index:20;background:rgba(11,15,20,.9);
+  backdrop-filter:blur(10px);border-bottom:1px solid var(--hair2)}
+.hdr .in{display:flex;align-items:center;justify-content:space-between;height:64px}
+.wordmark{display:flex;align-items:center;gap:16px;color:var(--bone)}
+.wordmark:hover{color:var(--bone)}
+.wordmark .nm{font:500 var(--t-sm)/1 "Cormorant Garamond",serif;letter-spacing:.22em}
+.wordmark .ar{font-size:var(--t-micro);color:var(--faint)}
+.nav{display:flex;align-items:center;gap:32px}
+.nav .lnk{font-size:var(--t-sm);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.nav .lnk:hover{color:var(--bone)}
 
-  /* numbers */
-  .nums{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:26px;text-align:center}
-  .numcard{padding:26px 18px;border:1px solid #232c3a;background:var(--charcoal)}
-  .numcard .v{font-family:"Cormorant Garamond",serif;font-size:clamp(42px,6vw,64px);line-height:1;color:var(--gilt)}
-  .numcard .v small{font-size:.42em;color:var(--gilt-hi)}
-  .numcard .l{color:var(--soft);font-size:13.5px;margin-top:10px;letter-spacing:.02em}
-  .numcard .ar-l{color:var(--muted);font-size:12.5px;margin-top:6px}
+/* ---------- hero ---------- */
+.hero{padding:96px 0 128px;border-top:0}
+.hero::after{content:"";position:absolute;left:0;right:0;top:0;height:1px;
+  background:linear-gradient(90deg,transparent 32%,rgba(198,161,91,.4) 50%,transparent 68%)}
+.hero .cols{display:grid;grid-template-columns:6fr 5fr;gap:48px;align-items:center}
+.hero .stack{max-width:34em}
+.hero .eyebrow{margin-bottom:24px}
+.hero .h1{margin-bottom:8px}
+.hero .ar-h1{font-size:var(--t-sm);color:var(--gold);margin-bottom:24px}
+.hero .lead{margin-bottom:16px}
+.hero .ar-lead{font-size:var(--t-sm);color:var(--muted);max-width:30em;margin-bottom:48px}
+.hero .actions{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+.hero .fine{margin-top:24px;font-size:var(--t-micro);letter-spacing:.12em;color:var(--faint)}
+.hero .trust{margin-top:32px}
 
-  /* steps */
-  ol.steps{counter-reset:s;list-style:none;margin-top:24px;display:grid;grid-template-columns:1fr 1fr;gap:0 40px}
-  ol.steps li{counter-increment:s;padding:14px 0 12px;border-bottom:1px solid var(--line);display:flex;gap:16px;align-items:baseline;font-size:15.5px;color:var(--bone)}
-  ol.steps li::before{content:counter(s,decimal-leading-zero);color:var(--gilt);font-family:"JetBrains Mono",monospace;font-size:12px;letter-spacing:.1em;min-width:32px}
-  ol.steps li span{color:var(--soft)}
-  ol.steps li .arline{display:block;color:var(--muted);font-size:13px;margin-top:2px}
+/* ---------- product panel (the one dashboard) ---------- */
+.product{background:var(--surface);border:1px solid var(--hair);position:relative}
+.product::before{content:"";position:absolute;top:-1px;left:24px;right:24px;height:1px;
+  background:var(--gold);opacity:.7}
+.p-top{display:flex;align-items:center;justify-content:space-between;
+  padding:16px;border-bottom:1px solid var(--hair2)}
+.p-brand{display:flex;align-items:center;gap:12px}
+.p-brand .lbl{font:500 var(--t-micro)/1 "JetBrains Mono",monospace;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.p-live{display:flex;align-items:center;gap:10px;
+  font:500 var(--t-micro)/1 "JetBrains Mono",monospace;letter-spacing:.14em;color:var(--gold)}
+.p-live .d{width:5px;height:5px;border-radius:50%;background:var(--gold)}
+.p-rows{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--hair2)}
+.p-cell{background:var(--surface2);padding:16px}
+.p-cell .nm{font-size:var(--t-sm);color:var(--soft)}
+.p-cell .st{display:flex;align-items:center;gap:8px;margin-top:8px;
+  font:500 var(--t-micro)/1 "JetBrains Mono",monospace;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--faint)}
+.p-cell .st .d{width:5px;height:5px;border-radius:50%;background:var(--gold);flex:none}
+.p-cell.idle .st .d{background:#2E3A4A}
+.p-mid{display:grid;grid-template-columns:1.4fr 1fr;border-top:1px solid var(--hair2)}
+.p-mid>div{padding:24px}
+.p-mid>div+div{border-left:1px solid var(--hair2)}
+.p-h{font:500 var(--t-micro)/1 "JetBrains Mono",monospace;letter-spacing:.24em;
+  text-transform:uppercase;color:var(--faint);margin-bottom:16px}
+.p-li{display:flex;align-items:baseline;gap:12px;padding:8px 0;
+  font-size:var(--t-sm);color:var(--soft);line-height:1.5}
+.p-li+.p-li{border-top:1px solid var(--hair2)}
+.p-li .m{color:var(--gold);font-size:var(--t-micro);transform:translateY(1px)}
+.p-money .big{font-family:"Cormorant Garamond",serif;font-weight:500;
+  font-size:var(--t-3);line-height:1;color:var(--bone)}
+.p-money .big2{font-family:"Cormorant Garamond",serif;font-size:var(--t-1);
+  line-height:1.1;color:var(--soft);font-weight:500;margin-top:24px}
+.p-money .lab{margin-top:8px;font:500 var(--t-micro)/1 "JetBrains Mono",monospace;
+  letter-spacing:.18em;text-transform:uppercase;color:var(--faint)}
+.p-ask{border-top:1px solid var(--hair2);padding:24px}
+.p-ask .q{font-size:var(--t-sm);color:var(--soft);line-height:1.5}
+.p-ask .a{margin-top:12px;font:400 var(--t-sm)/1.7 "JetBrains Mono",monospace;color:#A9B2BE}
+.p-ask .c{display:inline-block;margin-top:12px;padding:4px 8px;
+  font:500 var(--t-micro)/1 "JetBrains Mono",monospace;letter-spacing:.12em;
+  color:var(--gold);border:1px solid rgba(198,161,91,.35)}
 
-  /* proof */
-  .proof{display:grid;grid-template-columns:1.2fr 1fr;gap:14px;margin-top:26px}
-  .proof .big{font-family:"Cormorant Garamond",serif;font-size:22px;line-height:1.35;color:var(--bone)}
-  .proof .big .g{color:var(--gilt);font-style:italic}
-  .proof .ar{color:var(--soft);font-size:14.5px;line-height:1.85}
+/* ---------- agents: one card style ---------- */
+.agents{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.agent{background:var(--surface);border:1px solid var(--hair);
+  padding:32px 24px;transition:border-color .2s ease}
+.agent:hover{border-color:#2C3848}
+.agent .ix{display:flex;align-items:center;gap:10px;margin-bottom:16px;
+  font:500 var(--t-micro)/1 "JetBrains Mono",monospace;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--gold)}
+.agent .ix .d{width:4px;height:4px;border-radius:50%;background:var(--gold)}
+.agent .h3{font-family:"Cormorant Garamond",serif;font-weight:500;
+  font-size:var(--t-1);color:var(--bone);line-height:1.2}
+.agent .ar-nm{font-size:var(--t-sm);color:var(--faint);margin-top:4px}
+.agent .ds{margin-top:16px;font-size:var(--t-sm);color:var(--muted);line-height:1.55}
 
-  /* form */
-  .formgrid{display:grid;grid-template-columns:1.2fr .8fr;gap:22px;margin-top:26px;align-items:start}
-  form .field{margin-bottom:16px}
-  label{display:block;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
-  label .ar-lab{color:var(--muted);text-transform:none;letter-spacing:normal;font-size:12.5px;margin-left:6px}
-  input,textarea{background:var(--ink);border:1px solid #232c3a;color:var(--bone);padding:12px 14px;font-family:Inter,system-ui,sans-serif;
-                 font-size:15px;width:100%;border-radius:0;outline:none;transition:border-color .14s}
-  input:focus,textarea:focus{border-color:var(--gilt)}
-  textarea{min-height:100px;resize:vertical}
-  .hint{font-size:12px;color:var(--muted);margin-top:8px;line-height:1.6}
-  .ok .ok-mark{width:52px;height:52px;border:1px solid var(--gilt);border-radius:50%;display:grid;place-items:center;color:var(--gilt);
-               font-size:22px;margin-bottom:14px}
-  .ok h3{font-family:"Cormorant Garamond",serif;font-size:28px;letter-spacing:.01em}
-  .ok .ar-h3{color:var(--gilt);font-size:16px;margin-top:4px}
-  .ok p{color:var(--soft);margin-top:14px;max-width:44ch}
-  .ok .email{margin-top:16px;font-family:"JetBrains Mono",monospace;font-size:13px;color:var(--gilt)}
-  .ok .note{color:var(--muted);margin-top:8px;font-size:13px}
+/* ---------- number band: one card ---------- */
+.band{display:grid;grid-template-columns:repeat(3,1fr);
+  background:var(--surface);border:1px solid var(--hair)}
+.band .cell{padding:48px 32px}
+.band .cell+.cell{border-left:1px solid var(--hair2)}
+.band .fig{font-family:"Cormorant Garamond",serif;font-weight:500;
+  font-size:var(--t-3);line-height:1;color:var(--gold)}
+.band .fig small{font-size:.44em;color:var(--goldhi)}
+.band .cap{margin-top:16px;font-size:var(--t-sm);color:var(--soft);line-height:1.5}
+.band .ar-c{margin-top:8px;font-size:var(--t-sm);color:var(--faint);line-height:1.6}
+.band-note{margin-top:24px;font-size:var(--t-sm);color:var(--faint);line-height:1.6}
 
-  /* footer */
-  footer.site{padding:64px 0 70px;text-align:center}
-  footer .wm-big{font-family:"Cormorant Garamond",serif;font-size:40px;letter-spacing:.12em;color:var(--bone)}
-  footer .ar-wm{color:var(--soft);font-size:16px;margin-top:6px}
-  footer .fine{color:var(--muted);margin-top:20px;font-size:12.5px;letter-spacing:.1em}
-  footer .contact{margin-top:14px;font-family:"JetBrains Mono",monospace;font-size:13px;color:var(--gilt)}
+/* ---------- steps: one hairline list ---------- */
+.steps{list-style:none;counter-reset:s;max-width:760px}
+.steps li{counter-increment:s;display:flex;gap:24px;
+  padding:16px 0;border-top:1px solid var(--hair2)}
+.steps li:last-child{border-bottom:1px solid var(--hair2)}
+.steps li::before{content:counter(s,decimal-leading-zero);
+  font:500 var(--t-micro)/1 "JetBrains Mono",monospace;letter-spacing:.2em;
+  color:var(--gold);min-width:28px;padding-top:6px}
+.steps .t{font-size:var(--t-body);color:var(--soft);line-height:1.55;flex:1}
+.steps .t b{font-weight:500;color:var(--bone)}
+.steps .ar-line{display:block;margin-top:8px;font-size:var(--t-sm);color:var(--faint)}
+.rule{margin-top:48px;display:flex;gap:16px;align-items:flex-start;
+  font-size:var(--t-sm);color:var(--muted);line-height:1.6;max-width:70em}
+.rule .d{flex:none;width:5px;height:5px;border-radius:50%;
+  background:var(--gold);margin-top:8px}
+.rule b{color:var(--soft);font-weight:500}
 
-  /* motion: subtle reveal */
-  .reveal{opacity:0;transform:translateY(14px);transition:opacity .7s ease,transform .7s ease}
-  .reveal.in{opacity:1;transform:none}
+/* ---------- trust ---------- */
+.pull{font-family:"Cormorant Garamond",serif;font-style:italic;font-weight:400;
+  font-size:clamp(var(--t-1),3.4vw,var(--t-3));line-height:1.4;color:var(--bone);max-width:26em}
+.pull .gold{font-style:normal}
+.pull-src{margin-top:24px;font-size:var(--t-sm);color:var(--faint);line-height:1.5}
+.ev-head{font:500 var(--t-micro)/1 "JetBrains Mono",monospace;letter-spacing:.28em;
+  text-transform:uppercase;color:var(--gold);margin-bottom:24px}
+.ev{list-style:none}
+.ev li{display:flex;gap:16px;align-items:baseline;
+  padding:16px 0;border-top:1px solid var(--hair2);
+  font-size:var(--t-body);color:var(--soft);line-height:1.5}
+.ev li:last-child{border-bottom:1px solid var(--hair2)}
+.ev li .d{flex:none;width:5px;height:5px;border-radius:50%;background:var(--gold)}
+.ev li b{font-weight:500;color:var(--bone)}
+.ev li .ar{display:block;margin-top:8px;font-size:var(--t-sm);color:var(--faint)}
+.ev-note{margin-top:24px;font-size:var(--t-sm);color:var(--faint);line-height:1.6}
 
-  @media(max-width:880px){
-    .hero{grid-template-columns:1fr;min-height:auto;gap:34px}
-    .hero .stage{max-width:520px;margin:0 auto}
-    .aggrid{grid-template-columns:1fr 1fr}
-    ol.steps{grid-template-columns:1fr}
-    .formgrid{grid-template-columns:1fr}
-    .proof{grid-template-columns:1fr}
-    .dashgrid{grid-template-columns:1fr 1fr}
-    .dashgrid .card.money,.dashgrid .ask{grid-column:span 2}
-    .nums{grid-template-columns:1fr}
-    section{padding:56px 0}
-  }
+/* ---------- form: one card ---------- */
+.form{background:var(--surface);border:1px solid var(--hair);padding:48px}
+.fld{margin-bottom:24px}
+.fld label{display:block;font:500 var(--t-micro)/1 Inter,sans-serif;
+  letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
+.fld label .ar{font-size:var(--t-sm);letter-spacing:0;text-transform:none;
+  color:var(--faint);font-weight:400;margin-inline-start:8px}
+.inp{width:100%;background:var(--surface2);border:1px solid var(--hair);
+  color:var(--bone);font:400 var(--t-body)/1.5 Inter,sans-serif;
+  padding:16px;transition:border-color .15s;border-radius:0}
+.inp:focus{outline:none;border-color:var(--gold)}
+.inp::placeholder{color:var(--faint)}
+textarea.inp{resize:vertical;min-height:96px;font-family:inherit}
+.radios{display:flex;gap:24px;padding-top:2px}
+.rad{display:flex;align-items:center;gap:10px;cursor:pointer;font-size:var(--t-sm);color:var(--soft)}
+.rad input{appearance:none;width:14px;height:14px;border:1px solid #334054;
+  border-radius:50%;margin:0;background:var(--surface2);
+  display:grid;place-items:center;cursor:pointer;transition:border-color .12s}
+.rad input::after{content:"";width:6px;height:6px;border-radius:50%;
+  background:var(--gold);transform:scale(0);transition:transform .12s}
+.rad input:checked{border-color:var(--gold)}
+.rad input:checked::after{transform:scale(1)}
+.form .btn{width:100%;padding:16px 24px;margin-top:8px}
+.form .fine{margin-top:16px;font-size:var(--t-micro);letter-spacing:.08em;
+  color:var(--faint);text-align:center;line-height:1.8}
+.form .err{margin-top:12px;font-size:var(--t-sm);color:var(--gold);display:none}
+.form-ok{text-align:center;padding:64px 48px}
+.ok-dot{width:48px;height:48px;border:1px solid var(--gold);border-radius:50%;
+  display:grid;place-items:center;margin:0 auto 24px;color:var(--gold);font-size:var(--t-sm)}
+.form-ok h3{font-family:"Cormorant Garamond",serif;font-weight:500;
+  font-size:var(--t-2);color:var(--bone)}
+.form-ok .ar-h3{margin-top:8px;font-size:var(--t-sm);color:var(--gold)}
+.form-ok p{margin-top:16px;font-size:var(--t-sm);color:var(--soft);line-height:1.6;
+  max-width:36em;margin-left:auto;margin-right:auto}
+.form-ok .mail{margin-top:24px;font:500 var(--t-sm)/1 "JetBrains Mono",monospace;
+  letter-spacing:.06em;color:var(--gold)}
+.next .what{padding:16px 0;border-top:1px solid var(--hair2);
+  font-size:var(--t-body);color:var(--soft);line-height:1.55}
+.next .what:first-of-type{border-top:0;padding-top:0}
+.next .what .ar{display:block;margin-top:8px;font-size:var(--t-sm);color:var(--faint)}
+.next-quote{margin-top:24px;padding-top:24px;border-top:1px solid var(--hair2);
+  font-size:var(--t-sm);color:var(--muted);line-height:1.65}
+
+/* ---------- footer ---------- */
+.foot{border-top:1px solid var(--hair2);padding:96px 0 64px;text-align:center}
+.foot .wm{font:500 var(--t-3)/1 "Cormorant Garamond",serif;letter-spacing:.24em;
+  color:var(--bone);margin-top:24px}
+.foot .ar-wm{margin-top:8px;font-size:var(--t-sm);color:var(--faint)}
+.foot .mail{margin-top:24px;font:500 var(--t-sm)/1 "JetBrains Mono",monospace;
+  letter-spacing:.08em;color:var(--gold)}
+.foot .trust{justify-content:center;margin-top:32px}
+.foot .fine{margin-top:32px;font-size:var(--t-micro);letter-spacing:.16em;
+  color:var(--faint);line-height:2.4}
+
+/* ---------- responsive: collapse to single column ---------- */
+@media (max-width:920px){
+  section{padding:64px 0}
+  .hero{padding:64px 0 96px}
+  .hero .cols,.cols2,.cols-7-5{grid-template-columns:1fr;gap:48px}
+  .agents{grid-template-columns:1fr 1fr;gap:16px}
+  .band{grid-template-columns:1fr}
+  .band .cell+.cell{border-left:0;border-top:1px solid var(--hair2)}
+  .nav .lnk{display:none}
+}
+@media (max-width:560px){
+  .h1{font-size:var(--t-3);line-height:1.1}
+  .h2,.pull{font-size:var(--t-1)}
+  .band .fig,.p-money .big{font-size:var(--t-2)}
+  .agent{padding:32px 16px}
+  .agents{grid-template-columns:1fr;gap:16px}
+  .p-rows{grid-template-columns:1fr 1fr}
+  .p-mid{grid-template-columns:1fr}
+  .p-mid>div+div{border-left:0;border-top:1px solid var(--hair2)}
+  .form{padding:32px}
+}
 </style>
 </head>
 <body>
 
-<!-- ============ HEADER ============ -->
-<header class="site">
-  <div class="wrap row">
-    <div class="brand">
-      <a href="/" aria-label="Wakil home">
-        <svg viewBox="0 0 96 96" width="30" height="30" aria-hidden="true">
-          <rect width="96" height="96" fill="transparent"/>
-          <use href="#monogram-sym"/>
-        </svg>
-      </a>
-      <div>
-        <div class="nm">WAKIL</div>
-        <div class="ar" style="font-size:11.5px;color:var(--muted)">الوكيل</div>
-      </div>
-    </div>
-    <nav>
-      <a href="#what">What</a>
-      <a href="#how">How</a>
-      <a href="#proof">Trust</a>
-      <a class="btn small" href="#meet">Request an introduction</a>
-    </nav>
-  </div>
-</header>
-
-<!-- ============ HERO ============ -->
-<section class="hero" style="border-top:none">
-  <div>
-    <div class="num">PRIVATE · SOVEREIGN · UAE &nbsp;·&nbsp; <span class="ar" dir="rtl">خاص · سيادي · الإمارات</span></div>
-    <h1 class="serif">The one who<br>acts&nbsp;for&nbsp;you<span class="dot"></span></h1>
-    <div class="ar" style="margin-top:2px">من يعمل نيابةً عنك</div>
-    <p class="lead">WAKIL installs a sovereign AI office on your own machine — twenty
-    to thirty agents running your banks, your entities, your calendar, and your day.
-    Private on-premise. Independently advised. Entirely yours.</p>
-    <p class="ar ar-lead">مكتَب ذكاء اصطناعي سيادي على جهازك أنت — عشرينَ إلى ثلاثينَ
-    موكِلًا يشغّلون بنوكَكَ وأوراقَكَ وموعدَاتِكَ. محليّ، مستقلّ، لك وحدك.</p>
-    <div class="trust">
-      <span>INDEPENDENT</span><span>PRIVATE</span><span>YOURS</span>
-    </div>
-    <div class="cta">
-      <a class="btn" href="#meet">Reserve a private introduction</a>
-      <a class="btn ghost" href="#how">How it works&nbsp;↓</a>
-    </div>
-    <p class="note">We reply personally. No sales, no auto-sequences. Private. No public demos.</p>
-  </div>
-
-  <div class="dashbox" aria-label="WAKIL dashboard preview">
-    <div class="dashbar">
-      <span><b>WAKIL</b> · SOVEREIGN · LOCAL</span>
-      <span class="run">20 AGENTS RUNNING · YOU ●</span>
-    </div>
-    <div class="dashgrid">
-      <div>
-        <div class="card">
-          <h4>Agents</h4>
-          <div class="tile"><span class="n">Portfolio<span class="dstat"></span></span><span class="s">1 flag</span></div>
-          <div class="tile"><span class="n">Bank &amp; Finance</span><span class="s">synced</span></div>
-          <div class="tile"><span class="n">Calendar &amp; Day</span><span class="s">brief ready</span></div>
-          <div class="tile"><span class="n">Investment</span><span class="s">3 watch</span></div>
-          <div class="tile"><span class="n">Entity &amp; Board</span><span class="s">2 health</span></div>
-          <div class="tile"><span class="n">Research</span><span class="s">cited</span></div>
-        </div>
-      </div>
-      <div>
-        <div class="card today">
-          <h4>Today</h4>
-          <div class="line"><span class="mk">◆</span><span>Cap-call missed — Almarai Group</span></div>
-          <div class="line"><span class="mk">◆</span><span>Board 4&nbsp;days behind — 2 actions</span></div>
-          <div class="line"><span class="mk">◆</span><span>Opportunity: new portfolio line</span></div>
-        </div>
-      </div>
-      <div>
-        <div class="card money">
-          <h4>Money</h4>
-          <div class="big">AED 48.2M</div>
-          <div class="lab">total · across entities</div>
-          <div class="big sm">AED −2.4M</div>
-          <div class="lab">5-day flow</div>
-        </div>
-      </div>
-    </div>
-    <div class="ask">
-      <div class="q">Q &nbsp;·&nbsp; Which entity is behind its board date, and why?</div>
-      <div class="a">A &nbsp;·&nbsp; Almarai Group — board 4d behind; cap-call missed 28/09. Next: re-issue.</div>
-      <div class="cite">[ source · local · portfolio/records ]</div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ THE LINE ============ -->
-<section id="what">
-  <div class="wrap">
-    <div class="num">01 — The line</div>
-    <h2 class="serif">We are not a product and we are not a cloud.</h2>
-    <p class="lead">WAKIL is a sovereign AI office — installed on a machine in your office —
-    that acts for you. We are independent, so we recommend only what fits. You keep every key
-    yourself. Nothing leaves your premises.</p>
-    <p class="ar arblock" style="max-width:64ch">لسنا منتجًا ولستنا سحابة — نحن مكتب سيادي يركب على جهازك في مكتبك
-    ويعمل نيابةً عنك. نوصي بما يناسبك فقط، وتبقي أنت على كل المفاتيح. لا يخرج شيء عن جهازك.</p>
-    <div class="trust" style="margin-top:28px">
-      <span>INDEPENDENT</span>
-      <span>PRIVATE</span>
-      <span>YOURS</span>
-      <span>ON-PREMISE</span>
-    </div>
-  </div>
-</section>
-
-<!-- ============ WHAT IT RUNS ============ -->
-<section>
-  <div class="wrap">
-    <div class="num">02 — What it runs</div>
-    <h2 class="serif">A deputy, quietly working.</h2>
-    <p class="ar arblock">مُوكِل صامت، يعمل بوضوح.</p>
-    <div class="aggrid">
-      <div class="ag reveal">
-        <div class="k">01 · Portfolio</div>
-        <div class="name">Portfolio</div>
-        <div class="ar-nm">المحفظة</div>
-        <p>Your entities, holdings, KPIs. Flags anomalies before they surface.</p>
-      </div>
-      <div class="ag reveal" style="transition-delay:.06s">
-        <div class="k">02 · Bank &amp; Finance</div>
-        <div class="name">Bank</div>
-        <div class="ar-nm">البنوك</div>
-        <p>Reads your banks — you enter the keys. Surfaces what matters.</p>
-      </div>
-      <div class="ag reveal" style="transition-delay:.12s">
-        <div class="k">03 · Calendar &amp; Day</div>
-        <div class="name">Day</div>
-        <div class="ar-nm">اليوم</div>
-        <p>Agenda, follow-ups, and a brief that's ready before your first call.</p>
-      </div>
-      <div class="ag reveal" style="transition-delay:.18s">
-        <div class="k">04 · Investment</div>
-        <div class="name">Investment</div>
-        <div class="ar-nm">الاستثمار</div>
-        <p>Positions, thesis, opportunities, watch-lists.</p>
-      </div>
-      <div class="ag reveal" style="transition-delay:.24s">
-        <div class="k">05 · Entity &amp; Board</div>
-        <div class="name">Entity</div>
-        <div class="ar-nm">الكيانات</div>
-        <p>Per-entity health, board-deck drafts, cap view.</p>
-      </div>
-      <div class="ag reveal" style="transition-delay:.30s">
-        <div class="k">06 · Research</div>
-        <div class="name">Ask</div>
-        <div class="ar-nm">اسأل</div>
-        <p>A private, source-cited answer over your own documents.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ THE PROMISE ============ -->
-<section>
-  <div class="wrap" style="text-align:center">
-    <div class="num">03 — The promise · two months</div>
-    <h2 class="serif" style="margin-bottom:4px">Measured, not claimed.</h2>
-    <p class="ar arblock" style="margin-bottom:0">مقيس، لا يُدَّعى.</p>
-    <div class="nums">
-      <div class="numcard reveal">
-        <div class="v">20–30</div>
-        <div class="l">agents working for you</div>
-        <div class="ar-l">عشرون إلى ثلاثون موكِلًا</div>
-      </div>
-      <div class="numcard reveal" style="transition-delay:.08s">
-        <div class="v">10<small>×</small></div>
-        <div class="l">efficiency — a stated target, measured at day 30</div>
-        <div class="ar-l">كفاءة — هدفٌ معلَن يُقاس في اليوم الثلاثين</div>
-      </div>
-      <div class="numcard reveal" style="transition-delay:.16s">
-        <div class="v">1</div>
-        <div class="l">sovereign machine you own</div>
-        <div class="ar-l">جهازٌ سيادي ملكٌ لك</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ HOW IT WORKS ============ -->
-<section id="how">
-  <div class="wrap">
-    <div class="num">04 — How it works</div>
-    <h2 class="serif">From intake to your hands.</h2>
-    <p class="ar arblock">من التقييم إلى يديك.</p>
-    <ol class="steps">
-      <li><span>Intake &amp; sovereign scope — we map what you run and pick your top agents.</span><span class="arline">التقييم وتحديد النطاق السيادي</span></li>
-      <li><span>Your node — supplied, imaged, secured, in your premises.</span><span class="arline">جهازك — في مقرك</span></li>
-      <li><span>Connectors — you authorise every integration; we never hold the key.</span><span class="arline">الربطات — تُوِّفِر وحدك، لا نملك أيّ مفتاح</span></li>
-      <li><span>The initial agents live — five, working from day one.</span><span class="arline">الموكِلون الأوّلون — خمسة يعملون من اليوم</span></li>
-      <li><span>Your "Today" dashboard — the morning surface.</span><span class="arline">لوحة "اليوم" — سطح الصبح</span></li>
-      <li><span>Education &amp; handover — you drive it, not us.</span><span class="arline">تدريب وتسليم — أنت من يشغّله</span></li>
-      <li><span>30-day tuning — we measure the target against actuals.</span><span class="arline">ضبط في ثلاثين يومًا — نقيس الهدف</span></li>
-      <li><span>Expansion toward 20–30 agents — only what earns its place.</span><span class="arline">توسّع نحو 20–30 موكِلًا</span></li>
-      <li><span>Reference &amp; on-call — we are there, quietly, when you are.</span><span class="arline">شهادة ومتابعة — نحن معك بهدوء</span></li>
-    </ol>
-    <p class="muted" style="margin-top:22px;font-size:13.5px">
-      You enter your own credentials at every step. Nothing leaves your machine.
-      <span class="ar" style="color:var(--muted)">تُدخل مفاتيحك وحدك في كلِّ خطوة. لا يخرج أيُّ شيء عن جهازك.</span>
-    </p>
-  </div>
-</section>
-
-<!-- ============ PROOF / TRUST ============ -->
-<section id="proof">
-  <div class="wrap">
-    <div class="num">05 — Why trust us</div>
-    <h2 class="serif">Independent. That's the product.</h2>
-    <p class="ar arblock">مستقلّون. هذا هو المنتج.</p>
-    <div class="proof">
-      <div>
-        <p class="big">We are independent. We don't sell software, and we don't take a
-        commission on any tool we recommend. We install it on your hardware and hand you
-        the keys. <span class="g">That independence</span> is why senior leaders trust us
-        — because they know we cannot be pushed.</p>
-        <p class="ar" style="margin-top:14px">مستقلّون. لا نبيع برامجَ، ولا نأخذ عمولةً على أيّ أداةٍ نوصي بها.
-        نركّبها على جهازك ونسلّمُك المفاتيح. <span style="color:var(--gilt)">هذا الاستقلال</span>
-        هو السبب الذي يجعل القادة يثقون بنا لأننا لا نقدر على أن نُحرَّض.</p>
-      </div>
-      <div>
-        <h4 class="lbl">Proven with senior leaders across</h4>
-        <div style="display:flex;flex-direction:column;gap:10px;padding:16px 0;background:var(--charcoal);border:1px solid #212938">
-          <div style="font-family:'Cormorant Garamond',serif;font-size:19px;color:var(--bone)">Abu Dhabi Police</div>
-          <div style="font-family:'Cormorant Garamond',serif;font-size:19px;color:var(--bone)">Emirates Foundation</div>
-          <div style="font-family:'Cormorant Garamond',serif;font-size:19px;color:var(--bone)">Multi-entity private groups</div>
-        </div>
-        <p class="muted" style="font-size:12.5px">References available on request, in person, under NDA.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ FORM ============ -->
-<section id="meet">
-  <div class="wrap">
-    <div class="num">06 — Private introduction</div>
-    <h2 class="serif" id="form-title">Reserve a private introduction.</h2>
-    <p class="ar arblock" style="margin-bottom:0;color:var(--gilt);font-size:16px">احجز لقاءً خاصًّا.</p>
-
-    <div class="formgrid">
-      <div id="form-box">
-        <form id="intro-form" method="POST" action="https://formsubmit.co/ajax/deputy@vyker.co.uk" novalidate>
-          <input type="hidden" name="_subject" value="WAKIL — Private introduction request"/>
-          <input type="hidden" name="_captcha" value="false"/>
-          <input type="hidden" name="_template" value="table"/>
-          <input type="hidden" name="_templateButton" value=""/>
-          <div class="field">
-            <label for="f-name">Name <span class="ar-lab">الاسم</span></label>
-            <input id="f-name" type="text" name="name" autocomplete="name" required/>
-          </div>
-          <div class="field">
-            <label for="f-role">Role / Entity <span class="ar-lab">المنصب / الكيان</span></label>
-            <input id="f-role" type="text" name="role" placeholder="e.g. Chairman, Al-X Group" required/>
-          </div>
-          <div class="field">
-            <label for="f-line">A line on what you run <span class="ar-lab">سطرٌ عمّا تشغّله</span></label>
-            <textarea id="f-line" name="what" placeholder="Entities, banks, team, day — in one or two lines." required></textarea>
-          </div>
-          <div class="field">
-            <label>Language <span class="ar-lab">اللغة</span></label>
-            <div style="display:flex;gap:18px;margin-top:6px">
-              <label style="text-transform:none;letter-spacing:0;color:var(--soft);display:inline-flex;gap:8px;align-items:center;cursor:pointer">
-                <input type="radio" name="lang" value="en" checked style="width:auto;margin-right:6px"/> English
-              </label>
-              <label style="text-transform:none;letter-spacing:0;color:var(--soft);display:inline-flex;gap:8px;align-items:center;cursor:pointer">
-                <input type="radio" name="lang" value="ar" style="width:auto;margin-right:6px" dir="rtl"/> العربية
-              </label>
-            </div>
-          </div>
-          <div style="margin-top:14px">
-            <button type="submit" class="btn" id="f-submit">Request a private introduction</button>
-            <button type="button" class="btn ghost" id="f-cancel" style="margin-left:8px" hidden>Cancel</button>
-          </div>
-          <p class="hint">We reply personally from <span class="mono">deputy@vyker.co.uk</span>.
-          No sales, no auto-sequences, no mailing list.</p>
-          <p id="f-err" style="color:#E3A63A;margin-top:10px;font-size:13px;display:none"></p>
-        </form>
-      </div>
-
-      <div class="panel ok" id="form-ok" hidden>
-        <div class="ok-mark" aria-hidden="true">✓</div>
-        <h3 class="serif">Received. We'll reply personally.</h3>
-        <div class="ar-h3 ar">وصل طلبُك. نردّ عليك شخصيًّا.</div>
-        <p id="ok-msg">Thank you. A private introduction follows from our deputy —
-        typically within one business day.</p>
-        <div class="email">deputy@vyker.co.uk</div>
-        <div class="note">No lists. No auto-sequences.</div>
-      </div>
-
-      <aside class="panel" style="border-color:#263042;background:#111722">
-        <h4 class="lbl" style="color:var(--gilt)">What happens next</h4>
-        <div style="font-size:14.5px;color:var(--soft);line-height:1.75">
-          1 &nbsp;·&nbsp; A private meeting, in your office, on your time.<br/>
-          2 &nbsp;·&nbsp; A quiet walkthrough — what we think of your day, your banks, your entities.<br/>
-          3 &nbsp;·&nbsp; If there's a fit, we scope the first five agents.<br/>
-          4 &nbsp;·&nbsp; You decide. No contract until you see it run.
-        </div>
-        <div class="ar" style="margin-top:14px;font-size:13px;color:var(--muted);line-height:1.85">
-          ١ · لقاءٌ خاصٌّ في مكتبك على وقتك.<br/>
-          ٢ · جولةٌ هادئة — ما نرى في يومك وبنوكك وكياناتك.<br/>
-          ٣ · إن وُجد التلاؤم، نحدد الموكِلين الخمسة الأوائل.<br/>
-          ٤ · أنت تقرر. لا عقد إلّا بعد أن تراه يعمل.
-        </div>
-      </aside>
-    </div>
-  </div>
-</section>
-
-<!-- ============ FOOTER ============ -->
-<footer class="site">
-  <div class="wrap">
-    <div style="margin-bottom:20px">
-      <svg viewBox="0 0 96 96" width="54" height="54" aria-hidden="true">
-        <rect width="96" height="96" fill="transparent"/>
-        <use href="#monogram-sym"/>
-      </svg>
-    </div>
-    <div class="wm-big serif">WAKIL<span class="dot"></span></div>
-    <div class="ar-wm ar">الوكيل — من يعمل نيابةً عنك</div>
-    <div class="contact">deputy@vyker.co.uk</div>
-    <div class="fine">PRIVATE · SOVEREIGN · YOURS · UAE<br/>
-    <span style="letter-spacing:.04em">© <span id="yr"></span> WAKIL · no public demos · no auto-sequences · no third-party trackers</span></div>
-  </div>
-</footer>
-
-<!-- ============ MONOGRAM SYMBOL (shared) ============ -->
+<!-- shared monogram (defined first so every <use> resolves) -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
     <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#E5C788"/><stop offset="50%" stop-color="#C6A15B"/><stop offset="100%" stop-color="#9E7832"/>
+      <stop offset="0%" stop-color="#E0BE7A"/><stop offset="50%" stop-color="#C6A15B"/>
+      <stop offset="100%" stop-color="#9E7832"/>
     </linearGradient>
     <linearGradient id="b" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0%" stop-color="#FFFFFF"/><stop offset="100%" stop-color="#D6CEBE"/>
     </linearGradient>
-    <symbol id="monogram-sym" viewBox="-2 8 96 96">
-      <path d="M 14 26 L 31 74 L 45 42 L 59 74 L 76 26" stroke="url(#b)" stroke-width="3.6"
-            stroke-linecap="square" stroke-linejoin="miter" fill="none"/>
+    <symbol id="monogram" viewBox="-2 8 96 96">
+      <path d="M 14 26 L 31 74 L 45 42 L 59 74 L 76 26" stroke="url(#b)"
+        stroke-width="3.6" stroke-linecap="square" stroke-linejoin="miter" fill="none"/>
       <polygon points="45,20 54,34 45,48 36,34" fill="none" stroke="url(#g)" stroke-width="2"/>
       <circle cx="45" cy="34" r="3" fill="url(#g)"/>
     </symbol>
   </defs>
 </svg>
 
+<!-- ================= HEADER ================= -->
+<header class="hdr">
+  <div class="wrap in">
+    <a class="wordmark" href="#top" aria-label="Wakil — home">
+      <svg width="22" height="22" viewBox="-2 8 96 96" aria-hidden="true"><use href="#monogram"/></svg>
+      <span class="nm">WAKIL</span>
+      <span class="ar" dir="rtl">الوكيل</span>
+    </a>
+    <nav class="nav" aria-label="Primary">
+      <a class="lnk" href="#what">What</a>
+      <a class="lnk" href="#how">How</a>
+      <a class="lnk" href="#trust">Trust</a>
+      <a class="btn btn-2" href="#meet" style="padding:12px 20px">Request an introduction</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- ================= 01 · HERO ================= -->
+<section class="hero" style="position:relative">
+  <div class="wrap cols">
+    <div class="stack">
+      <p class="eyebrow">Private · Sovereign · UAE &nbsp;·&nbsp;
+        <span class="ar" dir="rtl" style="font-family:'Noto Naskh Arabic',serif;letter-spacing:.04em;text-transform:none">خاص · سيادي · الإمارات</span>
+      </p>
+      <h1 class="h1">The one who<br>acts for you<span class="dot"></span></h1>
+      <p class="ar ar-h1" dir="rtl">من يعمل نيابةً عنك</p>
+      <p class="lead">A sovereign AI office on your own machine — twenty to thirty
+      agents running your banks, your entities, your calendar and your day.</p>
+      <p class="ar ar-lead" dir="rtl">مكتب ذكاء اصطناعي سيادي على جهازكم — عشرين إلى ثلاثين
+      موكِّلاً يشغّلون بنوككم، وكياناتكم، ومواعيدكم، ويومكم.</p>
+      <div class="actions">
+        <a class="btn" href="#meet">Request an introduction <span class="ar" dir="rtl">· احجزوا لقاءً</span></a>
+        <a class="btn btn-2" href="#how">How it works</a>
+      </div>
+      <div class="trust">
+        <span class="t">Independent</span><span class="d"></span>
+        <span class="t">Private</span><span class="d"></span>
+        <span class="t">Yours</span><span class="d"></span>
+        <span class="t">On-premise</span>
+      </div>
+      <p class="fine">WE REPLY PERSONALLY · 24H · NO SEQUENCES · NO TRACKERS</p>
+    </div>
+
+    <div class="product" role="img"
+      aria-label="The WAKIL dashboard — six live agents, three decisions for today, money, and one cited answer.">
+      <div class="p-top">
+        <div class="p-brand">
+          <svg width="14" height="14" viewBox="-2 8 96 96" aria-hidden="true"><use href="#monogram"/></svg>
+          <span class="lbl">Wakil · Sovereign</span>
+        </div>
+        <span class="p-live"><span class="d"></span>20 LIVE</span>
+      </div>
+      <div class="p-rows">
+        <div class="p-cell"><div class="nm">Portfolio</div><div class="st"><span class="d"></span>Live</div></div>
+        <div class="p-cell"><div class="nm">Bank</div><div class="st"><span class="d"></span>Live</div></div>
+        <div class="p-cell"><div class="nm">Day</div><div class="st"><span class="d"></span>Live</div></div>
+        <div class="p-cell idle"><div class="nm">Invest</div><div class="st"><span class="d"></span>Idle</div></div>
+        <div class="p-cell"><div class="nm">Entity</div><div class="st"><span class="d"></span>Live</div></div>
+        <div class="p-cell"><div class="nm">Ask</div><div class="st"><span class="d"></span>Cited</div></div>
+      </div>
+      <div class="p-mid">
+        <div>
+          <div class="p-h">Today</div>
+          <div class="p-li"><span class="m">◆</span>Cap-call missed — Almarai Group</div>
+          <div class="p-li"><span class="m">◆</span>Board 4 days behind — 2 actions</div>
+          <div class="p-li"><span class="m">◆</span>Portfolio line — ready to open</div>
+        </div>
+        <div class="p-money">
+          <div class="p-h" style="margin-bottom:16px">Money</div>
+          <div class="big">AED 48.2M</div>
+          <div class="lab">Total · Entities</div>
+          <div class="big2">−AED 2.4M</div>
+          <div class="lab">5-Day Flow</div>
+        </div>
+      </div>
+      <div class="p-ask">
+        <div class="q">Which entity is behind its board date, and why?</div>
+        <div class="a">Almarai Group — board 4d behind; cap-call missed 28/09.<br/>Next: re-issue.</div>
+        <span class="c">LOCAL · PORTFOLIO/RECORDS</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 02 · WHAT ================= -->
+<section id="what">
+  <div class="wrap">
+    <div class="sechead">
+      <p class="eyebrow">What it is</p>
+      <h2 class="h2">Not a product. Not a cloud.<br>A private room where intelligence works for you.</h2>
+      <p class="ar" dir="rtl" style="font-size:var(--t-sm);color:var(--faint)">
+        ليس منتجًا، ولستنا سحابة — غرفةٌ خاصة يعمل فيها الذكاء نيابةً عنكم.</p>
+    </div>
+    <div class="cols2">
+      <div>
+        <p class="body" style="margin-bottom:24px">WAKIL sits in your office, on a machine you own,
+        and acts for you. It enters your banks, your calendar and your entity records —
+        under your own credential, in your own name.</p>
+        <p class="body" style="margin-bottom:24px">We are independent: we sell no software, take
+        no commission on the tool we recommend, and push no vendor. We recommend what fits,
+        install it on your hardware, and hand you the keys.</p>
+        <p class="body">The deputy does not mirror your data. It does not leave.
+        Every answer is source-cited inside your own network, and every action
+        is logged, replayable and deletable by you.</p>
+      </div>
+      <div>
+        <div class="ev-head">Three definitions</div>
+        <ul class="ev">
+          <li><span class="d"></span><div><b>Independent</b> — the recommendation
+            is not paid for by the recommended.
+            <span class="ar" dir="rtl">المستشار مستقلّ: توصيته ليست مربحًا من الموصى به</span></div></li>
+          <li><span class="d"></span><div><b>Private</b> — the data plane
+            ends at your wall.
+            <span class="ar" dir="rtl">البيانات تنتهي عند جداركم</span></div></li>
+          <li><span class="d"></span><div><b>Yours</b> — hardware, stack,
+            credentials — in your name.
+            <span class="ar" dir="rtl">الحاسوب، والحِرفة، والمفاتيح بأسمِكم</span></div></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 03 · AGENTS ================= -->
+<section>
+  <div class="wrap">
+    <div class="sechead">
+      <p class="eyebrow">What it runs</p>
+      <h2 class="h2">Twenty to thirty agents, working quietly.</h2>
+      <p class="lead" style="margin-top:16px">Six of them start the work. The rest earn their place as we learn your day.</p>
+      <p class="ar" dir="rtl" style="font-size:var(--t-sm);color:var(--faint)">
+        ستة تبدأ العمل، والباقون يكسبون مكانهم حين نعرف يومكم.</p>
+    </div>
+    <div class="agents">
+      <div class="agent">
+        <div class="ix"><span class="d"></span>01 · Portfolio</div>
+        <div class="h3">Portfolio</div>
+        <div class="ar-nm ar" dir="rtl">المحفظة</div>
+        <div class="ds">Entities, holdings, KPIs. Flags the anomaly before it surfaces.</div>
+      </div>
+      <div class="agent">
+        <div class="ix"><span class="d"></span>02 · Bank</div>
+        <div class="h3">Bank &amp; Finance</div>
+        <div class="ar-nm ar" dir="rtl">البنوك</div>
+        <div class="ds">Reads your banks — you enter the keys. Surfaces what matters.</div>
+      </div>
+      <div class="agent">
+        <div class="ix"><span class="d"></span>03 · Day</div>
+        <div class="h3">Calendar &amp; Day</div>
+        <div class="ar-nm ar" dir="rtl">اليوم</div>
+        <div class="ds">Agenda, follow-ups, a brief ready before your first call.</div>
+      </div>
+      <div class="agent">
+        <div class="ix"><span class="d"></span>04 · Invest</div>
+        <div class="h3">Investment</div>
+        <div class="ar-nm ar" dir="rtl">الاستثمار</div>
+        <div class="ds">Positions, thesis, opportunities, watch-lists.</div>
+      </div>
+      <div class="agent">
+        <div class="ix"><span class="d"></span>05 · Entity</div>
+        <div class="h3">Entity &amp; Board</div>
+        <div class="ar-nm ar" dir="rtl">الكيانات</div>
+        <div class="ds">Per-entity health, board-deck drafts, capital view.</div>
+      </div>
+      <div class="agent">
+        <div class="ix"><span class="d"></span>06 · Ask</div>
+        <div class="h3">Research</div>
+        <div class="ar-nm ar" dir="rtl">اسأل</div>
+        <div class="ds">A private, source-cited answer over your own documents.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 04 · PROMISE ================= -->
+<section>
+  <div class="wrap">
+    <div class="sechead">
+      <p class="eyebrow">The promise · two months</p>
+      <h2 class="h2">Stated, signed, measured.</h2>
+      <p class="ar" dir="rtl" style="font-size:var(--t-sm);color:var(--faint)">
+        معلَن، موقّع، مقيس — لا يُدَّعى.</p>
+    </div>
+    <div class="band">
+      <div class="cell">
+        <div class="fig">20–30</div>
+        <div class="cap">Agents working for you</div>
+        <div class="ar-c ar" dir="rtl">عشرون إلى ثلاثين موكِّلاً</div>
+      </div>
+      <div class="cell">
+        <div class="fig">10<small>×</small></div>
+        <div class="cap">Efficiency — the target, in writing</div>
+        <div class="ar-c ar" dir="rtl">كرافعةٌ عشرة — الهدفُ في الكتاب</div>
+      </div>
+      <div class="cell">
+        <div class="fig">1</div>
+        <div class="cap">Sovereign machine, in your name</div>
+        <div class="ar-c ar" dir="rtl">جهازٌ سيّاد بأسمِكم</div>
+      </div>
+    </div>
+    <p class="band-note">"10×" is a stated target, to be measured at day 30 against actuals —
+    not a marketing claim.
+    <span class="ar" dir="rtl" style="color:var(--faint)">«عشرة أضعاف» هدفٌ معلَن يُقاس في اليوم
+    الثلاثين أمام الفعلي — لا يُدَّعى.</span></p>
+  </div>
+</section>
+
+<!-- ================= 05 · HOW ================= -->
+<section id="how">
+  <div class="wrap">
+    <div class="sechead">
+      <p class="eyebrow">How it works</p>
+      <h2 class="h2">From intake, to your hands.</h2>
+      <p class="ar" dir="rtl" style="font-size:var(--t-sm);color:var(--faint)">
+        من التقييم، إلى أيديكم.</p>
+    </div>
+    <ol class="steps">
+      <li><div class="t"><b>Intake &amp; sovereign scope.</b> We map what you run and pick the first five agents.
+        <span class="ar-line ar" dir="rtl">التقييم وتحديد النطاق السيّاد.</span></div></li>
+      <li><div class="t"><b>Your node.</b> Supplied, imaged, secured, in your premises.
+        <span class="ar-line ar" dir="rtl">جهازكم — مقدَّم، مُؤمَّن، في مقرّكم.</span></div></li>
+      <li><div class="t"><b>Connectors.</b> You authorise each one; we never hold the key.
+        <span class="ar-line ar" dir="rtl">الربطات — تُوَفَّرون وحدكم، لا نملك مفتاحًا.</span></div></li>
+      <li><div class="t"><b>First five, live.</b> Working from day one.
+        <span class="ar-line ar" dir="rtl">الأوَّلون الخمسة يعملون من اليوم.</span></div></li>
+      <li><div class="t"><b>The dashboard.</b> Your morning surface, on your LAN.
+        <span class="ar-line ar" dir="rtl">لوحَتكم الصبحيّة، على شبكتكم.</span></div></li>
+      <li><div class="t"><b>Education &amp; handover.</b> You drive it, not us.
+        <span class="ar-line ar" dir="rtl">تدريبٌ وتسليم — أنتم من يشغّله.</span></div></li>
+      <li><div class="t"><b>30-day tuning.</b> The target, measured against actuals.
+        <span class="ar-line ar" dir="rtl">ضبطٌ في ثلاثين يومًا، قياسُ الهدف.</span></div></li>
+      <li><div class="t"><b>Expansion.</b> Toward 20–30 — only what earns its place.
+        <span class="ar-line ar" dir="rtl">توسّعٌ نحو 20–30 — بما يستحقّ.</span></div></li>
+      <li><div class="t"><b>Reference &amp; on-call.</b> Quietly, whenever you are.
+        <span class="ar-line ar" dir="rtl">شهادةٌ ومتابعة — بهدوء، ما دامتم.</span></div></li>
+    </ol>
+    <p class="rule"><span class="d"></span>
+      <span style="flex:1">One rule governs every step:
+      <b>you enter your own credentials at every integration.</b> We recommend, install,
+      and hand back the keys.
+      <span class="ar" dir="rtl" style="display:block;margin-top:8px">
+      قاعدةٌ واحدةٌ تحكم كلَّ خطوة: أنتم تدخلون مفاتيحكم في كلِّ ربط؛ نحن نقترح، ونركّب، ونعيد المفاتيح.</span>
+      </span></p>
+  </div>
+</section>
+
+<!-- ================= 06 · TRUST ================= -->
+<section id="trust">
+  <div class="wrap">
+    <div class="sechead">
+      <p class="eyebrow">Why trust us</p>
+      <h2 class="h2">Independence is the product.</h2>
+      <p class="ar" dir="rtl" style="font-size:var(--t-sm);color:var(--faint)">
+        الاستقلالُ هو المنتَج.</p>
+    </div>
+    <div class="cols2">
+      <div>
+        <p class="pull">"The vendor is trusted — the key is not handed over.
+        <span class="gold">We hand back the key.</span>"</p>
+        <p class="pull-src">— the rule we hold to, one room at a time.
+        <span class="ar" dir="rtl" style="display:block;margin-top:8px;color:var(--faint)">
+        القاعدة التي نُمسكُها؛ غرفةً بعد غرفة.</span></p>
+      </div>
+      <div>
+        <div class="ev-head">Where it has been proven</div>
+        <ul class="ev">
+          <li><span class="d"></span><div><b>Abu Dhabi Police</b> — a near US$20M deployment
+            left in the air, rebuilt to the actual outcome.</div></li>
+          <li><span class="d"></span><div><b>Emirates Foundation</b> — the working model behind the ask.</div></li>
+          <li><span class="d"></span><div><b>A group of five or six entities</b> —
+            the reference that opens the fleet.</div></li>
+        </ul>
+        <p class="ev-note">References available on request, in person, under NDA.
+        <span class="ar" dir="rtl" style="display:block;margin-top:8px">
+        مراجعٌ متاحة عند الطلب، في غرفةٍ، تحت سرّيّةٍ موقّعة.</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 07 · MEET ================= -->
+<section id="meet">
+  <div class="wrap">
+    <div class="sechead">
+      <p class="eyebrow">A private introduction</p>
+      <h2 class="h2">Reserve a meeting in your office.</h2>
+      <p class="ar" dir="rtl" style="font-size:var(--t-sm);color:var(--gold)">
+        احجزوا لقاءً خاصًّا في مكتبكم.</p>
+    </div>
+    <div class="cols-7-5">
+      <div id="form-panel" class="form">
+        <form id="intro-form" method="POST" action="https://formsubmit.co/ajax/deputy@vyker.co.uk" novalidate>
+          <input type="hidden" name="_subject" value="WAKIL — private introduction request"/>
+          <input type="hidden" name="_captcha" value="false"/>
+          <input type="hidden" name="_template" value="table"/>
+          <div class="fld">
+            <label for="f-name">Name <span class="ar" dir="rtl">الاسم</span></label>
+            <input class="inp" id="f-name" type="text" name="name" autocomplete="name" required/>
+          </div>
+          <div class="fld">
+            <label for="f-role">Role / Entity <span class="ar" dir="rtl">المنصب / الكيان</span></label>
+            <input class="inp" id="f-role" type="text" name="role"
+                   placeholder="e.g. Chairman, Al-X Group" required/>
+          </div>
+          <div class="fld">
+            <label for="f-line">On what you run <span class="ar" dir="rtl">بما تشغّلونه</span></label>
+            <textarea class="inp" id="f-line" name="what"
+              placeholder="Entities, banks, team, the shape of the day — a line or two."
+              required></textarea>
+          </div>
+          <div class="fld" style="margin-bottom:8px">
+            <label>Language <span class="ar" dir="rtl">اللغة</span></label>
+            <div class="radios">
+              <label class="rad"><input type="radio" name="lang" value="en" checked/> English</label>
+              <label class="rad"><input type="radio" name="lang" value="ar"/> <span class="ar" dir="rtl">العربية</span></label>
+            </div>
+          </div>
+          <button type="submit" class="btn" id="f-submit">Request the introduction</button>
+          <div class="err" id="f-err"></div>
+          <p class="fine">Replies personally from <span class="mono gold">deputy@vyker.co.uk</span>
+          · within one working day · no sequences</p>
+        </form>
+      </div>
+      <aside class="next">
+        <div class="ev-head">What happens next</div>
+        <div class="what">A meeting in your office, on your time.
+          <span class="ar" dir="rtl">لقاءٌ في مكتبكم، على وقتكم.</span></div>
+        <div class="what">A quiet walkthrough — your day, your banks, your entities.
+          <span class="ar" dir="rtl">جولةٌ هادئة — يومكم، بنوككم، كيانُكم.</span></div>
+        <div class="what">If there is a fit, the first five agents are scoped.
+          <span class="ar" dir="rtl">إن اتَّفَقنا، نحدّد الأوّلين الخمسة.</span></div>
+        <div class="what">No contract until you see it run.
+          <span class="ar" dir="rtl">لا عقدَ حتّى تروا العملَ جارٍ.</span></div>
+        <p class="next-quote">The invitation is for a room, not a funnel — one person at a time,
+        with their own machine, keys and agents. <span class="gold">The group is the second act,
+        not the first.</span>
+        <span class="ar" dir="rtl" style="display:block;margin-top:8px;color:var(--faint)">
+        الدعوة لغرفةٍ لا لمسار بيع؛ المجموعة الفصل الثاني، لا الأوّل.</span></p>
+      </aside>
+    </div>
+    <div id="form-ok" class="form form-ok" hidden role="status">
+      <div class="ok-dot">✓</div>
+      <h3>Received.</h3>
+      <p class="ar-h3 ar" dir="rtl">وصل طَلَبُكم.</p>
+      <p>A private introduction will follow from our deputy — typically within one working day.</p>
+      <div class="mail">deputy@vyker.co.uk</div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer class="foot">
+  <div class="wrap">
+    <svg width="36" height="36" viewBox="-2 8 96 96" aria-hidden="true"><use href="#monogram"/></svg>
+    <div class="wm">WAKIL</div>
+    <div class="ar-wm ar" dir="rtl">الوكيل — من يعمل نيابةً عنكم</div>
+    <div class="mail">deputy@vyker.co.uk</div>
+    <div class="trust" style="margin-top:32px">
+      <span class="t">Independent</span><span class="d"></span>
+      <span class="t">Private</span><span class="d"></span>
+      <span class="t">Yours</span><span class="d"></span>
+      <span class="t">On-premise</span>
+    </div>
+    <div class="fine">
+      © <span id="yr"></span> WAKIL &nbsp;·&nbsp; UAE &nbsp;·&nbsp; BY APPOINTMENT<br/>
+      NO PUBLIC DEMOS · NO SEQUENCES · NO TRACKERS<br/>
+      <span class="ar" style="display:inline-block;margin-top:8px">خاصّ · سيّاد · لكم</span>
+    </div>
+  </div>
+</footer>
+
 <script>
   document.getElementById('yr').textContent = new Date().getFullYear();
-
-  // Reveal on scroll — one time, no dep
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target) } })
-  }, {threshold:0.14});
-  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
-
-  // Form: FormSubmit AJAX -> success state
   const form = document.getElementById('intro-form');
-  const formBox = document.getElementById('form-box');
-  const formOk  = document.getElementById('form-ok');
-  const fSubmit = document.getElementById('f-submit');
-  const fErr    = document.getElementById('f-err');
-
+  const panel = document.getElementById('form-panel');
+  const ok  = document.getElementById('form-ok');
+  const sub = document.getElementById('f-submit');
+  const err = document.getElementById('f-err');
   form.addEventListener('submit', async (ev) => {
     ev.preventDefault();
-    fErr.style.display = 'none';
-    fSubmit.disabled = true; fSubmit.textContent = 'Sending…';
+    err.style.display = 'none';
+    sub.disabled = true; sub.textContent = 'Sending…';
     try {
-      const data = new FormData(form);
       const res = await fetch(form.action, {
-        method: 'POST',
-        body: data,
-        headers: { 'Accept': 'application/json', 'Content-Type': 'multipart/form-data' }
+        method:'POST',
+        body:new FormData(form),
+        headers:{'Accept':'application/json','Content-Type':'multipart/form-data'}
       });
       if (!res.ok) throw new Error('HTTP ' + res.status);
-      formBox.innerHTML = '';
-      formOk.hidden = false;
-      formOk.scrollIntoView({behavior:'smooth', block:'center'});
-    } catch (err) {
-      fSubmit.disabled = false; fSubmit.textContent = 'Request a private introduction';
-      fErr.textContent = 'The line did not take. Please email deputy@vyker.co.uk directly.';
-      fErr.style.display = 'block';
+      panel.hidden = true;
+      ok.hidden = false;
+      ok.scrollIntoView({behavior:'smooth', block:'center'});
+    } catch(e) {
+      sub.disabled = false; sub.textContent = 'Request the introduction';
+      err.textContent = 'The line did not take — please email deputy@vyker.co.uk directly.';
+      err.style.display = 'block';
     }
   });
 </script>
